@@ -44,7 +44,7 @@
             android:background="@null"
             android:padding="0dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_home_black_24dp" />
+            android:src="@drawable/Home" />
 
         <ImageButton
             android:id="@+id/notifyButton"
@@ -54,7 +54,7 @@
             android:layout_marginStart="60dp"
             android:padding="0dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_notifications_black_24dp" />
+            android:src="@drawable/notifications" />
 
     </LinearLayout>
 
