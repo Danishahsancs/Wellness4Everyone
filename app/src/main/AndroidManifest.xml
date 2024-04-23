@@ -15,6 +15,12 @@
         android:theme="@style/Theme.Wellness4Everyone"
         tools:targetApi="31">
         <activity
+            android:name=".Statspage"
+            android:exported="false" />
+        <activity
+            android:name=".Activitieslist"
+            android:exported="false" />
+        <activity
             android:name=".UserActivities"
             android:exported="false" />
         <activity

@@ -8,30 +8,38 @@ import android.widget.ImageButton;
 
 public class NotificationActivity extends Activity {
 
-    ImageButton homeButton;
-    ImageButton notifyButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notification_screen);
 
-        homeButton = (ImageButton) findViewById(R.id.homeButton);
-        notifyButton = (ImageButton) findViewById(R.id.notifyButton);
 
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(NotificationActivity.this, HomeActivity.class);
-                startActivity(intent);
-            }
-        });
+    }
 
-        notifyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // does nothing for now, may add functionality to refresh page if need be
-            }
-        });
+    public void changescreen(View view){
+        ImageButton btn = (ImageButton)  view;
+        String tag = btn.getTag().toString();
+
+        Intent intent;
+        switch (tag) {
+            case "Notificationpage":
+                intent = new Intent(NotificationActivity.this,NotificationActivity.class);
+                break;
+            case "Statspage":
+                intent = new Intent(NotificationActivity.this, Activitieslist.class);
+                break;
+            case "Activitiespage":
+                intent = new Intent(NotificationActivity.this, Statspage.class);
+                break;
+            case "Homepage":
+                intent = new Intent(NotificationActivity.this, HomeActivity.class);
+                break;
+            default:
+                throw new IllegalArgumentException("Unexpected tag: " + tag);
+        }
+        startActivity(intent);
     }
 }
+

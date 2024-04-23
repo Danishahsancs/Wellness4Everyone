@@ -89,7 +89,7 @@ public class LoginSignup extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         Toast.makeText(LoginSignup.this, "Account created.", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginSignup.this, Manger_Menu.class);
+                        Intent intent = new Intent(LoginSignup.this, HomeActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
