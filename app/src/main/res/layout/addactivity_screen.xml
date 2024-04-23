@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="0dp"
+    android:orientation="vertical"
+    >
+
+    <!-- header bar -->
+    <RelativeLayout
+        android:id="@+id/headerBar"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:orientation="horizontal"
+        android:background="@color/primarycolor">
+
+        <TextView
+            android:id="@+id/text_userhome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_activity"
+            android:textAlignment="center"
+            android:layout_centerInParent="true"
+            android:textColor="@color/Secondarycolor"
+            android:textSize="30sp" />
+
+        <ImageButton
+            android:id="@+id/button_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="15dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/backarrow" />
+
+    </RelativeLayout>
+
+    <!-- SECTION 1: activity dropdown and label -->
+    <TextView
+        android:id="@+id/label1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/activity_select_prompt"
+        android:layout_below="@id/headerBar"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:textSize="20sp"/>
+    <Spinner
+        android:id="@+id/spinner_chooseactivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/label1"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp" />
+
+    <!-- SECTION 2: enter details section and label -->
+    <TextView
+        android:id="@+id/label2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_details"
+        android:layout_below="@id/spinner_chooseactivity"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:textSize="20sp"/>
+
+    <Button
+        android:id="@+id/button_selectdate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/select_date"
+        android:textColor="@color/primarycolor"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_below="@id/label2"
+        android:backgroundTint="@color/Secondarycolor"
+        />
+
+    <!-- layout for duration -->
+    <LinearLayout
+        android:id="@+id/layout_duration"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_below="@id/button_selectdate"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp">
+
+        <Spinner
+            android:id="@+id/spinner_hours"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text=":"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18sp"/>
+
+        <Spinner
+            android:id="@+id/spinner_minutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:text=":"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="18sp"/>
+
+        <Spinner
+            android:id="@+id/spinner_seconds"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <!-- enter distance and description field boxes -->
+    <EditText
+        android:id="@+id/enter_distance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_duration"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:inputType="number"
+        android:hint="@string/enter_distance" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/enter_distance"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:inputType="textMultiLine"
+        android:minLines="10"
+        android:scrollbars="vertical"
+        android:gravity="top|start"
+        android:hint="@string/enter_description" />
+
+    <Button
+        android:layout_centerHorizontal="true"
+        android:id="@+id/button_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginBottom="15dp"
+        android:backgroundTint="@color/Secondarycolor"
+        android:text="@string/save"
+        android:textSize="20sp"
+        />
+
+
+</RelativeLayout>

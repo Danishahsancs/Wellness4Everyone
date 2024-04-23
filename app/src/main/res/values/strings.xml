@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">Wellness4Everyone</string>
+    <string name="email">email</string>
+    <string name="password">Password</string>
+    <string name="year_of_participation">year of participation</string>
+    <string name="name">Name</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="login">Login</string>
+    <string name="toggle_to_signup">Toggle to Signup</string>
+    <string name="title_activity_temp">temp</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="title_activity_home">home</string>
+    <string name="user_home">Home\n</string>
+    <string name="add_activity">Add Activity</string>
+    <string name="view_stats">View Stats</string>
+    <string name="view_activities">View Activites</string>
+    <string name="notifications">Notifications\n</string>
+    <string name="activity_select_prompt">Select Activity:</string>
+    <string name="enter_details">Enter Details:</string>
+    <string name="select_date">Select Date:</string>
+    <string name="enter_distance">Enter Distance:</string>
+    <string name="enter_description">Enter Description:</string>
+    <string name="save">Save</string>
+</resources>

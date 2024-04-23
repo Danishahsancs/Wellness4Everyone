@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "432876565625",
+    "project_id": "wellness4everyone-e46c4",
+    "storage_bucket": "wellness4everyone-e46c4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:432876565625:android:7e302fbada0843eb9bd0a8",
+        "android_client_info": {
+          "package_name": "com.example.wellness4everyone"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACFvS247FaPUXUrmHjvfcqR7Dj9FdPpSg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

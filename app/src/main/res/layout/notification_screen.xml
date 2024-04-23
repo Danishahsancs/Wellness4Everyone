@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="0dp"
+    android:orientation="vertical"
+  >
+
+    <!-- header bar -->
+    <LinearLayout
+        android:id="@+id/headerBar"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:background="@color/primarycolor">
+
+        <TextView
+            android:id="@+id/text_userhome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/notifications"
+            android:textAlignment="center"
+            android:textColor="@color/Secondarycolor"
+            android:textSize="30sp" />
+
+    </LinearLayout>
+
+    <!-- navigation bar -->
+    <LinearLayout
+        android:id="@+id/navBar"
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:background="@color/primarycolor"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/homeButton"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@null"
+            android:padding="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_home_black_24dp" />
+
+        <ImageButton
+            android:id="@+id/notifyButton"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:background="@null"
+            android:layout_marginStart="60dp"
+            android:padding="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_notifications_black_24dp" />
+
+    </LinearLayout>
+
+    <!-- delete button appears once notification is pressed -->
+
+
+    <!-- Scrolls through notifications -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/headerBar"
+        android:layout_above="@id/navBar">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
+
+
+</RelativeLayout>

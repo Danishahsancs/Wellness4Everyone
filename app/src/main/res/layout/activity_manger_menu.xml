@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="75dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Manager Home"
+        android:textColor="@color/Secondarycolor"
+        android:textSize="50dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primarycolor"
+        android:orientation="vertical"
+        android:weightSum="3"
+        android:padding="16dp"
+        android:layout_marginTop="-50dp"
+        >
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            >
+
+            <ImageButton
+                android:id="@+id/button_user_activities"
+                android:tag="UserActivities"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/circle"
+                android:src="@drawable/person"
+                android:onClick="changescreen"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="User Activities"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:textSize="30dp"
+                android:textColor="@color/Secondarycolor"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+            >
+
+            <ImageButton
+                android:id="@+id/button_group_stats"
+                android:tag="GroupStats"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/circle"
+                android:src="@drawable/group"
+                android:onClick="changescreen"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Group Stats"
+                android:textStyle="bold"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="20dp"
+                android:textSize="30sp"
+                android:textColor="@color/Secondarycolor"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:outlineSpotShadowColor="@color/primarycolor"
+            >
+
+            <ImageButton
+                android:id="@+id/button_notify_user"
+                android:tag="NotifyUser"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/circle"
+                android:src="@drawable/add_notification"
+                android:onClick="changescreen"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Notify User"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:textSize="30sp"
+                android:textColor="@color/Secondarycolor"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp"
+            android:outlineSpotShadowColor="@color/primarycolor"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Number of\nParticipants:"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginLeft="20dp"
+                android:textSize="30sp"
+                android:textColor="@color/Secondarycolor"/>
+
+            <TextView
+                android:id="@+id/userAmmount"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/circle"
+                android:text="1"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:layout_marginLeft="40dp"
+                android:gravity="center"
+                android:textSize="40dp"
+                android:textColor="@color/primarycolor"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
+
