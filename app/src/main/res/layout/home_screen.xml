@@ -91,6 +91,14 @@
             android:padding="0dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_notifications_black_24dp" />
+        <ImageButton
+            android:id="@+id/statsbtn"
+            android:layout_width="75dp"
+            android:layout_height="75dp"/>
+        <ImageButton
+            android:id="@+id/addscreenbtn"
+            android:layout_width="75dp"
+            android:layout_height="75dp"/>
 
     </LinearLayout>
 
