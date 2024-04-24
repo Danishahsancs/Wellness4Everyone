@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="0dp"
+    android:padding="10dp"
     android:orientation="vertical"
-    >
+    android:background="@color/primarycolor">
 
-    <!-- header bar -->
     <RelativeLayout
         android:id="@+id/headerBar"
         android:layout_width="match_parent"
         android:layout_height="88dp"
-        android:orientation="horizontal"
         android:background="@color/primarycolor">
 
         <TextView
@@ -33,41 +31,42 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="15dp"
             android:background="@android:color/transparent"
-            android:src="@drawable/backarrow" />
-
+            android:src="@drawable/backarrow"
+            android:onClick="goback"/>
     </RelativeLayout>
 
-    <!-- SECTION 1: activity dropdown and label -->
     <TextView
         android:id="@+id/label1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/activity_select_prompt"
+        android:text="Activity:"
         android:layout_below="@id/headerBar"
         android:layout_marginTop="10dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:textSize="20sp"/>
-    <Spinner
-        android:id="@+id/spinner_chooseactivity"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/label1"
-        android:layout_marginTop="5dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp" />
 
-    <!-- SECTION 2: enter details section and label -->
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottieWalking"
+        android:layout_below="@id/label1"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/walking_animation"/>
+
     <TextView
         android:id="@+id/label2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/enter_details"
-        android:layout_below="@id/spinner_chooseactivity"
+        android:layout_below="@id/lottieWalking"
         android:layout_marginTop="20dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:textSize="20sp"/>
+
+
 
     <Button
         android:id="@+id/button_selectdate"
@@ -76,85 +75,40 @@
         android:layout_centerHorizontal="true"
         android:text="@string/select_date"
         android:textColor="@color/primarycolor"
+        android:layout_below="@id/label2"
         android:layout_marginTop="5dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:layout_below="@id/label2"
         android:backgroundTint="@color/Secondarycolor"
-        />
+        android:onClick="setdate"/>
 
-    <!-- layout for duration -->
-    <LinearLayout
-        android:id="@+id/layout_duration"
-        android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_below="@id/button_selectdate"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp">
-
-        <Spinner
-            android:id="@+id/spinner_hours"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:text=":"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="18sp"/>
-
-        <Spinner
-            android:id="@+id/spinner_minutes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <TextView
-            android:text=":"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="18sp"/>
-
-        <Spinner
-            android:id="@+id/spinner_seconds"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-    </LinearLayout>
-
-    <!-- enter distance and description field boxes -->
     <EditText
-        android:id="@+id/enter_distance"
+        android:id="@+id/enter_mins"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/layout_duration"
+        android:layout_below="@id/button_selectdate"
         android:layout_marginTop="20dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:inputType="number"
-        android:hint="@string/enter_distance" />
+        android:hint="Enter Number of mins" />
 
     <EditText
+        android:id="@+id/enter_steps"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/enter_distance"
+        android:layout_below="@id/enter_mins"
         android:layout_marginTop="20dp"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
-        android:inputType="textMultiLine"
-        android:minLines="10"
-        android:scrollbars="vertical"
-        android:gravity="top|start"
-        android:hint="@string/enter_description" />
+        android:inputType="number"
+        android:hint="Enter Steps" />
 
     <Button
-        android:layout_centerHorizontal="true"
         android:id="@+id/button_save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
@@ -162,7 +116,17 @@
         android:backgroundTint="@color/Secondarycolor"
         android:text="@string/save"
         android:textSize="20sp"
-        />
+        android:layout_marginTop="10dp"/>
 
-
+    <TextView
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/enter_steps"
+        android:layout_above="@id/button_save"
+        android:background="@drawable/border"
+        android:text="Summary"
+        android:textSize="20sp"
+        android:textStyle="bold"/>
 </RelativeLayout>

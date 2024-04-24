@@ -45,6 +45,8 @@
 
             <Button
                 android:id="@+id/walkingbtn"
+                android:tag="walking"
+                android:onClick="chooseactivity"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -74,6 +76,8 @@
 
             <Button
                 android:id="@+id/runningbtn"
+                android:tag="running"
+                android:onClick="chooseactivity"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -102,6 +106,8 @@
 
             <Button
                 android:id="@+id/weightliftbtn"
+                android:tag="weightlifting"
+                android:onClick="chooseactivity"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -130,6 +136,8 @@
 
             <Button
                 android:id="@+id/swimbtn"
+                android:tag="swimming"
+                android:onClick="chooseactivity"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -158,6 +166,8 @@
 
             <Button
                 android:id="@+id/bikebtn"
+                android:tag="biking"
+                android:onClick="chooseactivity"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"

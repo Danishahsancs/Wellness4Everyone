@@ -28,55 +28,33 @@ public class AddActivityActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addactivity_screen);
 
+
+        Intent intent = getIntent();
+        String activityTag = intent.getStringExtra("ACTIVITY_TAG");
+
         // sets up back button
         backButton = (ImageButton) findViewById(R.id.button_back);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(AddActivityActivity.this, HomeActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        // sets up hr, min, & sec spinners for duration
-        spinnerHours = (Spinner) findViewById(R.id.spinner_hours);
-        spinnerMinutes = (Spinner) findViewById(R.id.spinner_minutes);
-        spinnerSeconds = (Spinner) findViewById(R.id.spinner_seconds);
-        setupSpinner(spinnerHours, 24);
-        setupSpinner(spinnerMinutes, 60);
-        setupSpinner(spinnerSeconds, 60);
-
-        // initializes calendar for date picker
         Calendar calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH);
         day = calendar.get(Calendar.DAY_OF_MONTH);
-        // sets date button click to show the DatePickerDialog
         dateButton = (Button) findViewById(R.id.button_selectdate);
-        dateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(AddActivityActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-
-                        }
-                    }, year, month, day);
-                datePickerDialog.show();
-            }
-        });
 
     }
 
-    private void setupSpinner(Spinner spinner, int range) {
-        List<String> options = new ArrayList<>();
-        for (int i = 0; i < range; i++) {
-            options.add(String.format(Locale.getDefault(), "%02d", i));
-        }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, options);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+    public void goback(View view){
+        Intent intent = new Intent(AddActivityActivity.this, HomeActivity.class);
+        startActivity(intent);
     }
+    public void setdate(View view){
+        DatePickerDialog datePickerDialog = new DatePickerDialog(AddActivityActivity.this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+
+                    }
+                }, year, month, day);
+        datePickerDialog.show();
+    }
+
 }
