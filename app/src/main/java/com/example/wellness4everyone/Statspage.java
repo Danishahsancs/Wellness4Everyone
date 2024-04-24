@@ -28,10 +28,10 @@ public class Statspage extends AppCompatActivity {
                 intent = new Intent(Statspage.this,NotificationActivity.class);
                 break;
             case "Statspage":
-                intent = new Intent(Statspage.this, Activitieslist.class);
+                intent = new Intent(Statspage.this, Statspage.class);
                 break;
             case "Activitiespage":
-                intent = new Intent(Statspage.this, Statspage.class);
+                intent = new Intent(Statspage.this, Activitieslist.class);
                 break;
             case "Homepage":
                 intent = new Intent(Statspage.this, HomeActivity.class);

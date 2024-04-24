@@ -29,10 +29,10 @@ public class Activitieslist extends AppCompatActivity {
                 intent = new Intent(Activitieslist.this,NotificationActivity.class);
                 break;
             case "Statspage":
-                intent = new Intent(Activitieslist.this, Activitieslist.class);
+                intent = new Intent(Activitieslist.this, Statspage.class);
                 break;
             case "Activitiespage":
-                intent = new Intent(Activitieslist.this, Statspage.class);
+                intent = new Intent(Activitieslist.this, Activitieslist.class);
                 break;
             case "Homepage":
                 intent = new Intent(Activitieslist.this, HomeActivity.class);

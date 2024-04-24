@@ -28,10 +28,10 @@ public class NotificationActivity extends Activity {
                 intent = new Intent(NotificationActivity.this,NotificationActivity.class);
                 break;
             case "Statspage":
-                intent = new Intent(NotificationActivity.this, Activitieslist.class);
+                intent = new Intent(NotificationActivity.this, Statspage.class);
                 break;
             case "Activitiespage":
-                intent = new Intent(NotificationActivity.this, Statspage.class);
+                intent = new Intent(NotificationActivity.this, Activitieslist.class);
                 break;
             case "Homepage":
                 intent = new Intent(NotificationActivity.this, HomeActivity.class);
