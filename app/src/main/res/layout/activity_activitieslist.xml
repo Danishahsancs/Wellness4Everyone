@@ -124,7 +124,7 @@
                 android:layout_weight="1"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
-                app:lottie_rawRes="@raw/weightlisfting_animation"/>
+                app:lottie_rawRes="@raw/weightlifting_animation"/>
         </LinearLayout>
 
         <LinearLayout
