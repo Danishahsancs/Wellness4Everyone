@@ -3,7 +3,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="blue">#2F3968</color>
+    <color name="home_banner">#33000000</color>
     <color name="primarycolor">#232323</color>
+    <color name="primarycolor.22t">#22232323</color>
+    <color name="primarycolor.33t">#33232323</color>
     <color name="Secondarycolor">#299345</color>
 
 </resources>

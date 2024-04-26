@@ -12,7 +12,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_home">home</string>
-    <string name="user_home">Home\n</string>
+    <string name="user_home">HOME</string>
     <string name="add_activity">Add Activity</string>
     <string name="view_stats">View Stats</string>
     <string name="view_activities">View Activites</string>
