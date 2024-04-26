@@ -116,7 +116,8 @@
         android:backgroundTint="@color/Secondarycolor"
         android:text="@string/save"
         android:textSize="20sp"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:onClick="saveworkout"/>
 
     <TextView
         android:id="@+id/activitysummary"

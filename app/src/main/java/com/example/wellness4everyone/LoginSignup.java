@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -17,17 +18,22 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class LoginSignup extends AppCompatActivity {
     Switch toggle;
     EditText name;
-    EditText year;
+    TextView year;
     Button lSbutton;
     EditText emailInput;
     EditText passwordInput;
     FirebaseAuth mAuth;
+    FirebaseFirestore db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,11 +42,14 @@ public class LoginSignup extends AppCompatActivity {
         setContentView(R.layout.login_signup);
         toggle = (Switch) findViewById(R.id.Signupswitch);
         name = (EditText) findViewById(R.id.name);
-        year = (EditText) findViewById(R.id.Yearjoin);
+        year = (TextView) findViewById(R.id.Yearjoin);
         emailInput = (EditText) findViewById(R.id.EmailAddress);
         passwordInput = (EditText) findViewById(R.id.Password);
         lSbutton = (Button) findViewById(R.id.LSButton);
         mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+
+        year.setText("Year of Participation: "+ Calendar.getInstance().get(Calendar.YEAR));
 
     }
 
@@ -64,7 +73,7 @@ public class LoginSignup extends AppCompatActivity {
         email = emailInput.getText().toString();
         password = passwordInput.getText().toString();
         usrname = name.getText().toString();
-        usryear = year.getText().toString();
+        usryear = String.valueOf(Calendar.getInstance().get(Calendar.YEAR));
 
         boolean isChecked = toggle.isChecked();
         if (TextUtils.isEmpty(email)) {
@@ -80,14 +89,12 @@ public class LoginSignup extends AppCompatActivity {
                 Toast.makeText(LoginSignup.this, "enter name", Toast.LENGTH_SHORT).show();
                 return;
             }
-            if (TextUtils.isEmpty(usryear)) {
-                Toast.makeText(LoginSignup.this, "enter year of participation", Toast.LENGTH_SHORT).show();
-                return;
-            }
+
             mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
+                        setupdatabase(email, usryear, usrname);
                         Toast.makeText(LoginSignup.this, "Account created.", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginSignup.this, HomeActivity.class);
                         startActivity(intent);
@@ -122,6 +129,22 @@ public class LoginSignup extends AppCompatActivity {
             });
 
         }
+
+    }
+    public void setupdatabase(String email,String year,String name){
+        Map<String, Object> emptyData = new HashMap<>();
+        Map<String, Object> userInfo = new HashMap<>();
+        userInfo.put("email",email);
+        userInfo.put("name", name);
+        userInfo.put("participation year", year);
+
+
+        db.collection("users").document(email).collection("walking").document("total").set(emptyData);
+        db.collection("users").document(email).collection("running").document("total").set(emptyData);
+        db.collection("users").document(email).collection("swimming").document("total").set(emptyData);
+        db.collection("users").document(email).collection("weightlifting").document("total").set(emptyData);
+        db.collection("users").document(email).collection("biking").document("total").set(emptyData);
+        db.collection("usersinfo").document(email).set(userInfo);
 
     }
 

@@ -12,9 +12,21 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.SetOptions;
+
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.LongAdder;
 
 
 public class AddActivityActivity extends Activity {
@@ -22,7 +34,11 @@ public class AddActivityActivity extends Activity {
     ImageButton backButton;
     Button dateButton;
     TextView summary;
-    String activityTag;
+    String activityTag, email;
+
+    FirebaseAuth mAuth;
+    FirebaseUser currentUser;
+    FirebaseFirestore db;
 
     EditText enterMins,enterSteps;
     int year, month, day;
@@ -46,13 +62,17 @@ public class AddActivityActivity extends Activity {
         summary = (TextView) findViewById(R.id.activitysummary);
         enterMins =(EditText) findViewById(R.id.enter_mins);
         enterSteps =(EditText) findViewById(R.id.enter_steps);
-
         setupTextWatchers();
         if(activityTag.equals("walking")|| activityTag.equals("running")){
            enterSteps.setVisibility(View.VISIBLE);
         }else{
             enterSteps.setVisibility(View.GONE);
         }
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        email = currentUser.getEmail();
     }
 
     private void changeanimation(String activityTag) {
@@ -143,5 +163,25 @@ public class AddActivityActivity extends Activity {
 
         summary.setText(sb);
     }
+
+    public void saveworkout(View view){
+        Map<String, Object> workout = new HashMap<>();
+        String date = (month+"-"+day+"-"+year);
+        workout.put("Date",month+"/"+day+"/"+year);
+        workout.put("Minutes",enterMins.getText().toString().trim());
+
+        if(activityTag.equals("walking")|| activityTag.equals("running")){
+            workout.put("Steps",enterSteps.getText().toString().trim());
+        }
+        db.collection("users").document(email).collection(activityTag).document(date).set(workout);
+
+        Toast.makeText(AddActivityActivity.this, activityTag+" activity added\n", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(AddActivityActivity.this, Activitieslist.class);
+        startActivity(intent);
+    }
+
+
+
+
 }
 
