@@ -14,19 +14,23 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.DocumentSnapshot;
+
+
 
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.atomic.LongAdder;
 
 
 public class AddActivityActivity extends Activity {
@@ -77,7 +81,7 @@ public class AddActivityActivity extends Activity {
 
     private void changeanimation(String activityTag) {
         LottieAnimationView lottieAnimationView = findViewById(R.id.lottieAnimationView);
-        int animationResource;
+
 
         switch (activityTag) {
             case "walking":
@@ -166,21 +170,97 @@ public class AddActivityActivity extends Activity {
 
     public void saveworkout(View view){
         Map<String, Object> workout = new HashMap<>();
-        String date = (month+"-"+day+"-"+year);
-        workout.put("Date",month+"/"+day+"/"+year);
-        workout.put("Minutes",enterMins.getText().toString().trim());
+        String date = (month + "-" + day + "-" + year); // Use for document ID
+        workout.put("Date", date); // Use the formatted date as the value
+        workout.put("Minutes", enterMins.getText().toString().trim());
 
         if(activityTag.equals("walking")|| activityTag.equals("running")){
-            workout.put("Steps",enterSteps.getText().toString().trim());
+            workout.put("Steps", enterSteps.getText().toString().trim());
         }
-        db.collection("users").document(email).collection(activityTag).document(date).set(workout);
 
-        Toast.makeText(AddActivityActivity.this, activityTag+" activity added\n", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(AddActivityActivity.this, Activitieslist.class);
-        startActivity(intent);
+
+        db.collection("users")
+                .document(email)
+                .collection(activityTag)
+                .document(date).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        int minutes = Integer.parseInt(document.getString("Minutes"));
+                        int tempMins = minutes+ Integer.parseInt(enterMins.getText().toString().trim());
+                        workout.put("Minutes",String.valueOf(tempMins));
+
+                        if(activityTag.equals("walking")|| activityTag.equals("running")){
+                            int steps = Integer.parseInt(document.getString("Steps"));
+                            int tempSteps =steps + Integer.parseInt(enterSteps.getText().toString().trim());
+                            workout.put("Steps",String.valueOf(tempSteps));
+                        }
+
+                    }
+                    db.collection("users")
+                            .document(email)
+                            .collection(activityTag)
+                            .document(date).set(workout);
+                    Toast.makeText(AddActivityActivity.this, activityTag + " activity added\n", Toast.LENGTH_SHORT).show();
+                    updatetotal();
+                    Intent intent = new Intent(AddActivityActivity.this, Activitieslist.class);
+                    startActivity(intent);
+                }
+            }
+        });
+
     }
 
+    public void updatetotal(){
 
+
+
+
+        db.collection("users")
+                .document(email)
+                .collection(activityTag)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        int totalMinutes = 0;
+                        int totalSteps = 0;
+                        if (task.isSuccessful()) {
+                            for (QueryDocumentSnapshot document : task.getResult()) {
+                                if (!document.getId().equals("total")) {
+                                    String minutesString = document.getString("Minutes");
+                                    int minutes =Integer.parseInt(minutesString);
+                                    totalMinutes += minutes;
+
+                                    if(activityTag.equals("walking")|| activityTag.equals("running")){
+                                        String stepsString = document.getString("Steps");
+                                        int steps = Integer.parseInt(stepsString);
+                                        totalSteps += steps;
+                                    }
+
+
+                                }
+                            }
+
+
+                            Map<String, Object> totalData = new HashMap<>();
+                            totalData.put("Minutes", totalMinutes);
+                            if(activityTag.equals("walking")|| activityTag.equals("running")){
+                                totalData.put("Steps", totalSteps);
+                            }
+
+
+                            db.collection("users")
+                                    .document(email)
+                                    .collection(activityTag)
+                                    .document("total")
+                                    .set(totalData);
+                        }
+                    }
+                });
+    }
 
 
 }
