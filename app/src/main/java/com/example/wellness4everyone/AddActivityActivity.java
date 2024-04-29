@@ -119,11 +119,17 @@ public class AddActivityActivity extends Activity {
                     @Override
                     public void onDateSet(DatePicker view, int yearx, int monthOfYear, int dayOfMonth) {
                         year = yearx;
-                        month = monthOfYear;
+                        month = monthOfYear + 1;
                         day = dayOfMonth;
                         updateResults();
                     }
                 }, year, month, day);
+        DatePicker datePicker = datePickerDialog.getDatePicker();
+
+
+        datePicker.setMaxDate(System.currentTimeMillis());
+
+
         datePickerDialog.show();
     }
 
