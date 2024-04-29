@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ public class Manger_Menu extends AppCompatActivity {
     ImageButton UA;
     ImageButton GS;
     ImageButton NU;
+    TextView numofusers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +27,9 @@ public class Manger_Menu extends AppCompatActivity {
         UA = (ImageButton) findViewById(R.id.button_user_activities);
         GS =(ImageButton) findViewById(R.id.button_group_stats);
         NU = (ImageButton) findViewById(R.id.button_notify_user);
+        numofusers = (TextView) findViewById(R.id.userAmmount);
+
+
     }
 
     public void changescreen(View view){
