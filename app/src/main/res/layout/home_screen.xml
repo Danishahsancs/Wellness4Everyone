@@ -31,7 +31,7 @@
 
     </LinearLayout>
 
-    <TextView
+    <Button
         android:id="@+id/text_welcome"
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -42,10 +42,11 @@
         android:paddingStart="20dp"
         android:paddingEnd="20dp"
         android:gravity="center"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:clickable="true"
         android:focusable="true"
-        android:background="@drawable/home_widgets"/>
+        android:background="@drawable/home_widgets"
+        android:textAllCaps="false"/>
 
 
 

@@ -115,11 +115,11 @@ public class LoginSignup extends AppCompatActivity {
                         if(email.equalsIgnoreCase("danish28436@gmail.com")){
                             Toast.makeText(LoginSignup.this, "Login Successful.", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginSignup.this, Manger_Menu.class);
-                            intent.putExtra("USERNAME_KEY", usrname); // enables username to be passed through different pages
                             startActivity(intent);
                         }else {
                         Toast.makeText(LoginSignup.this, "Login Successful.", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginSignup.this, HomeActivity.class);
+                        // intent.putExtra("USERNAME_KEY", usrname); (how to get username from login)
                         startActivity(intent);
                         }
                         finish();

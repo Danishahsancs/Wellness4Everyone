@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 public class HomeActivity extends Activity {
 
-    TextView welcomeWidget;
+    Button welcomeWidget;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,9 +19,9 @@ public class HomeActivity extends Activity {
 
         Intent intent = getIntent();
         String username = intent.getStringExtra("USERNAME_KEY");
-        welcomeWidget = (TextView) findViewById(R.id.text_welcome);
+        welcomeWidget = (Button) findViewById(R.id.text_welcome);
         String welcomeText = "<big><b>Welcome back, " + username + "!</b></big><br/><br/>" +
-                "Kick off your day by starting a new activity.";
+                "<small>Kick off your day by starting a new activity.</small>";
         welcomeWidget.setText(Html.fromHtml(welcomeText, Html.FROM_HTML_MODE_LEGACY));
 
     }
@@ -48,5 +48,7 @@ public class HomeActivity extends Activity {
                 throw new IllegalArgumentException("Unexpected tag: " + tag);
         }
         startActivity(intent);
+
     }
+
 }
