@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- SCREEN BACKGROUND GRADIENT -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:startColor="#0f372e"
+        android:endColor="#020907"
+        android:angle="270" />
+    <corners android:radius="12dp" />
+</shape>
