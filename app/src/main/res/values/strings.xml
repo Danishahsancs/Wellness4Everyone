@@ -13,6 +13,7 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_home">home</string>
     <string name="user_home">HOME</string>
+    <string name="user_stats">STATS</string>
     <string name="add_activity">Add Activity</string>
     <string name="view_stats">View Stats</string>
     <string name="view_activities">View Activites</string>
@@ -23,4 +24,10 @@
     <string name="enter_distance">Enter Distance:</string>
     <string name="enter_description">Enter Description:</string>
     <string name="save">Save</string>
+
+    <string name="walking_stats">Walking Stats</string>
+    <string name="running_stats">Running Stats</string>
+    <string name="weights_stats">Weights Stats</string>
+    <string name="swimming_stats">Swimming Stats</string>
+    <string name="biking_stats">Biking Stats</string>
 </resources>

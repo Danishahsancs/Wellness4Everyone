@@ -11,32 +11,91 @@
     <LinearLayout
         android:id="@+id/headerBar"
         android:layout_width="match_parent"
-        android:layout_height="88dp"
+        android:layout_height="50dp"
         android:background="@color/primarycolor">
 
         <TextView
-            android:id="@+id/text_userhome"
+            android:id="@+id/text_userstats"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Stats"
+            android:text="@string/user_stats"
             android:textAlignment="center"
             android:textColor="@color/Secondarycolor"
             android:textSize="30sp" />
 
     </LinearLayout>
 
+    <ScrollView
+        android:id="@+id/scrollview_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/headerBar"
+        android:layout_above="@id/navBar"
+        android:layout_margin="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/walking_stats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/walking_stats"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:textSize="35sp"
+                android:background="@drawable/roundedcorner_stats"/>
+
+            <TextView
+                android:id="@+id/running_stats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/running_stats"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:layout_below="@id/walking_stats"
+                android:textSize="35sp"
+                android:background="@drawable/roundedcorner_stats"/>
+
+            <TextView
+                android:id="@+id/weights_stats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/weights_stats"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:layout_below="@id/running_stats"
+                android:textSize="35sp"
+                android:background="@drawable/roundedcorner_stats"/>
+
+            <TextView
+                android:id="@+id/swimming_stats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/swimming_stats"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:layout_below="@id/weights_stats"
+                android:textSize="35sp"
+                android:background="@drawable/roundedcorner_stats"/>
+
+            <TextView
+                android:id="@+id/biking_stats"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/biking_stats"
+                android:gravity="center"
+                android:layout_margin="10dp"
+                android:layout_below="@id/swimming_stats"
+                android:textSize="35sp"
+                android:background="@drawable/roundedcorner_stats"/>
+
+        </RelativeLayout>
 
 
-
-
-
-
-
-
-
-
-
+    </ScrollView>
 
 
     <LinearLayout
@@ -45,7 +104,7 @@
         android:layout_height="75dp"
         android:layout_alignParentBottom="true"
         android:gravity="center"
-        android:background="@color/primarycolor"
+        android:background="@drawable/roundedcorner_top"
         android:orientation="horizontal"
         android:padding="15dp">
 
