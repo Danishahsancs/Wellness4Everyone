@@ -17,12 +17,18 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
 
-        Intent intent = getIntent();
-        String username = intent.getStringExtra("USERNAME_KEY");
         welcomeWidget = (Button) findViewById(R.id.text_welcome);
-        String welcomeText = "<big><b>Welcome back, " + username + "!</b></big><br/><br/>" +
+        String welcomeText = "<big><b>Welcome back!</b></big><br/><br/>" +
                 "<small>Kick off your day by starting a new activity.</small>";
         welcomeWidget.setText(Html.fromHtml(welcomeText, Html.FROM_HTML_MODE_LEGACY));
+
+        welcomeWidget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, AddActivityActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -50,5 +56,7 @@ public class HomeActivity extends Activity {
         startActivity(intent);
 
     }
+
+
 
 }

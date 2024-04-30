@@ -97,7 +97,6 @@ public class LoginSignup extends AppCompatActivity {
                         setupdatabase(email, usryear, usrname);
                         Toast.makeText(LoginSignup.this, "Account created.", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginSignup.this, HomeActivity.class);
-                        intent.putExtra("USERNAME_KEY", usrname); // enables username to be passed through different pages
                         startActivity(intent);
                         finish();
                     } else {
@@ -116,10 +115,10 @@ public class LoginSignup extends AppCompatActivity {
                             Toast.makeText(LoginSignup.this, "Login Successful.", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginSignup.this, Manger_Menu.class);
                             startActivity(intent);
-                        }else {
+                        } else {
                         Toast.makeText(LoginSignup.this, "Login Successful.", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginSignup.this, HomeActivity.class);
-                        // intent.putExtra("USERNAME_KEY", usrname); (how to get username from login)
+
                         startActivity(intent);
                         }
                         finish();
@@ -133,6 +132,7 @@ public class LoginSignup extends AppCompatActivity {
         }
 
     }
+
     public void setupdatabase(String email,String year,String name){
         Map<String, Object> emptyData = new HashMap<>();
         Map<String, Object> userInfo = new HashMap<>();
