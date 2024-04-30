@@ -48,6 +48,14 @@
                 android:textSize="35sp"
                 android:background="@drawable/roundedcorner_stats"/>
 
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart_walking"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/walking_stats"
+                android:layout_margin="10dp"
+                 />
+
             <TextView
                 android:id="@+id/running_stats"
                 android:layout_width="match_parent"
@@ -55,9 +63,17 @@
                 android:text="@string/running_stats"
                 android:gravity="center"
                 android:layout_margin="10dp"
-                android:layout_below="@id/walking_stats"
+                android:layout_below="@id/chart_walking"
                 android:textSize="35sp"
                 android:background="@drawable/roundedcorner_stats"/>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart_running"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/running_stats"
+                android:layout_margin="10dp"
+                />
 
             <TextView
                 android:id="@+id/weights_stats"
@@ -66,9 +82,17 @@
                 android:text="@string/weights_stats"
                 android:gravity="center"
                 android:layout_margin="10dp"
-                android:layout_below="@id/running_stats"
+                android:layout_below="@id/chart_running"
                 android:textSize="35sp"
                 android:background="@drawable/roundedcorner_stats"/>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart_weights"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/weights_stats"
+                android:layout_margin="10dp"
+                />
 
             <TextView
                 android:id="@+id/swimming_stats"
@@ -77,9 +101,17 @@
                 android:text="@string/swimming_stats"
                 android:gravity="center"
                 android:layout_margin="10dp"
-                android:layout_below="@id/weights_stats"
+                android:layout_below="@id/chart_weights"
                 android:textSize="35sp"
                 android:background="@drawable/roundedcorner_stats"/>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart_swimming"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/swimming_stats"
+                android:layout_margin="10dp"
+                />
 
             <TextView
                 android:id="@+id/biking_stats"
@@ -88,9 +120,17 @@
                 android:text="@string/biking_stats"
                 android:gravity="center"
                 android:layout_margin="10dp"
-                android:layout_below="@id/swimming_stats"
+                android:layout_below="@id/chart_swimming"
                 android:textSize="35sp"
                 android:background="@drawable/roundedcorner_stats"/>
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/chart_biking"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@id/biking_stats"
+                android:layout_margin="10dp"
+                />
 
         </RelativeLayout>
 
