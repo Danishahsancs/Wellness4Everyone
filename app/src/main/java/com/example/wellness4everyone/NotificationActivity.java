@@ -4,18 +4,62 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ListView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
+import java.util.ArrayList;
 
 public class NotificationActivity extends Activity {
 
+    ListView lvItems;
+    ArrayList<String>items;
+    ArrayAdapter<String>itemsAdapter;
+    String email;
+    FirebaseAuth mAuth;
+    FirebaseUser currentUser;
+    FirebaseFirestore db;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notification_screen);
+        lvItems = findViewById(R.id.lvItems);
+        items = new ArrayList<>();
+        itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
+        lvItems.setAdapter(itemsAdapter);
+
+        mAuth = FirebaseAuth.getInstance();
+        db = FirebaseFirestore.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        email = currentUser.getEmail();
 
 
+        //setupListViewListener();
+        loadItemsFromFirebase();
+
+    }
+
+    private void loadItemsFromFirebase() {
+        db.collection("notifications")
+                .document(email)
+                .collection("notification")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        items.clear();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            items.add(document.getString("Time")+"\n\n"+document.getString("Title")+"\n\t\t\t"+document.getString("Message"));
+                        }
+                    }
+                    itemsAdapter.notifyDataSetChanged();
+                });
     }
 
     public void changescreen(View view){
