@@ -65,7 +65,7 @@ public class NotifyUser extends AppCompatActivity {
         String titleinput = title.getText().toString().trim();
         String mes = notification.getText().toString().trim();
         Date now = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd-yyyy HH:mm:ss");
         String formattedDate = formatter.format(now);
 
         if(titleinput.isEmpty() || mes.isEmpty()) {

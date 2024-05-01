@@ -7,11 +7,17 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.annotations.Nullable;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 
@@ -50,17 +56,27 @@ public class NotificationActivity extends Activity {
         db.collection("notifications")
                 .document(email)
                 .collection("notification")
-                .get()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot snapshots,
+                                        @Nullable FirebaseFirestoreException e) {
+                        
+
                         items.clear();
-                        for (QueryDocumentSnapshot document : task.getResult()) {
-                            items.add(document.getString("Time")+"\n\n"+document.getString("Title")+"\n\t\t\t"+document.getString("Message"));
+                        for (DocumentSnapshot document : snapshots.getDocuments()) {
+                            items.add(document.getString("Time") + "\n\n" + document.getString("Title") + "\n\t\t\t" + document.getString("Message"));
+                        }
+                        itemsAdapter.notifyDataSetChanged();
+
+                        // Check if there are new notifications and update UI accordingly
+                        if (!snapshots.isEmpty()) {
+                            Toast.makeText(NotificationActivity.this, " Notification received from manager", Toast.LENGTH_SHORT).show();
                         }
                     }
-                    itemsAdapter.notifyDataSetChanged();
                 });
     }
+
+
 
     public void changescreen(View view){
         ImageButton btn = (ImageButton)  view;
