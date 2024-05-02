@@ -24,10 +24,17 @@
             android:textColor="@color/Secondarycolor"
             android:textSize="30sp" />
 
+
     </LinearLayout>
 
 
-
+    <ListView
+        android:id="@+id/lvItems"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/navBar"
+        android:layout_below="@id/headerBar"
+        />
 
 
 

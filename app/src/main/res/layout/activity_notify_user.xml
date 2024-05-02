@@ -45,18 +45,19 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Send to: "
+                android:text="Title: "
                 android:layout_gravity="center_vertical"/>
-            <Spinner
-                android:id="@+id/spinner"
+            <EditText
+                android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:entries="@array/user_list"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="8dp"/>
+                android:layout_marginStart="8dp"
+                android:hint="enter here."/>
         </LinearLayout>
 
         <EditText
+            android:id="@+id/notification"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -78,6 +79,7 @@
         android:textColor="@color/primarycolor"
         android:layout_gravity="center"
         android:layout_marginTop="24dp"
-        android:backgroundTint="@color/blue"/>
+        android:backgroundTint="@color/blue"
+        android:onClick="sendnoti"/>
 
 </LinearLayout>
