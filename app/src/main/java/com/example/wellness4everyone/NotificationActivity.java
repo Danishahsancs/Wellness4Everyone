@@ -73,9 +73,9 @@ public class NotificationActivity extends Activity {
                         itemsAdapter.notifyDataSetChanged();
 
                         // Check if there are new notifications and update UI accordingly
-//                        if (!snapshots.isEmpty()) {
-//                            Toast.makeText(NotificationActivity.this, " Notification received from manager", Toast.LENGTH_SHORT).show();
-//                        }
+                        if (!snapshots.isEmpty()) {
+                            Toast.makeText(NotificationActivity.this, " Notification received from manager", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
     }

@@ -132,7 +132,6 @@ public class LoginSignup extends AppCompatActivity {
 
 
         }
-        FirebaseMessaging.getInstance().subscribeToTopic("all");
     }
 
     public void setupdatabase(String email,String year,String name){
