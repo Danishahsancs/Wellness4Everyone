@@ -2,6 +2,7 @@ package com.example.wellness4everyone;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
@@ -18,6 +19,9 @@ import java.util.Date;
 import java.util.List;
 import android.widget.ArrayAdapter;
 import androidx.core.content.ContextCompat;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -34,6 +38,9 @@ public class Statspage extends AppCompatActivity {
     private Switch switchWkMth, switchDurSteps;
     private LinearLayout toggleView;
     private Spinner spinnerActivity;
+    FirebaseAuth mAuth;
+    FirebaseUser currentUser;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +116,11 @@ public class Statspage extends AppCompatActivity {
     }
 
     private void updateChartData(boolean showDuration, boolean showThirtyDays, String activity, boolean involvesSteps) {
-        firestore.collection("users").document("anyeforti1@icloud.com").collection(activity)
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        email = currentUser.getEmail();
+
+        firestore.collection("users").document(email).collection(activity)
                 .whereGreaterThanOrEqualTo("Date", getPastDate(showThirtyDays ? 30 : 7))
                 .get()
                 .addOnCompleteListener(task -> {
@@ -130,6 +141,7 @@ public class Statspage extends AppCompatActivity {
                         updateChart(entries, showDuration && involvesSteps ? "Minutes" : "Steps");
                     } else {
                         // Handle failures
+                        Log.e("FirestoreError", "Error fetching data: ", task.getException()); // temporal
                     }
                 });
     }
