@@ -13,6 +13,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+
 public class Manger_Menu extends AppCompatActivity {
     ImageButton UA;
     ImageButton GS;
@@ -28,8 +31,20 @@ public class Manger_Menu extends AppCompatActivity {
         GS =(ImageButton) findViewById(R.id.button_group_stats);
         NU = (ImageButton) findViewById(R.id.button_notify_user);
         numofusers = (TextView) findViewById(R.id.userAmmount);
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        db.collection("usersinfo")
+                .get()
+                .addOnCompleteListener(task -> {
+                    if (task.isSuccessful()) {
+                        int temp = 0;
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            String email = document.getId(); // Document ID as email
+                            temp++;
+                        }
+                        numofusers.setText(String.valueOf(temp));
+                    }
 
-
+                });
     }
 
     public void changescreen(View view){

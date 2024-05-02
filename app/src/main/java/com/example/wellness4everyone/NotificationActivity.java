@@ -64,7 +64,7 @@ public class NotificationActivity extends Activity {
 
                         items.clear();
                         for (DocumentSnapshot document : snapshots.getDocuments()) {
-                            String time = document.getString("Time").trim();
+                            String time = document.getString("Time");
                             if (time.length() > 3) {
                                 time = time.substring(0, time.length() - 3);
                             }
@@ -73,9 +73,9 @@ public class NotificationActivity extends Activity {
                         itemsAdapter.notifyDataSetChanged();
 
                         // Check if there are new notifications and update UI accordingly
-                        if (!snapshots.isEmpty()) {
-                            Toast.makeText(NotificationActivity.this, " Notification received from manager", Toast.LENGTH_SHORT).show();
-                        }
+//                        if (!snapshots.isEmpty()) {
+//                            Toast.makeText(NotificationActivity.this, " Notification received from manager", Toast.LENGTH_SHORT).show();
+//                        }
                     }
                 });
     }

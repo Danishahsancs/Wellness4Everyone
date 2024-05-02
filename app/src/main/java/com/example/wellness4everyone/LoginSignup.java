@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -129,8 +130,9 @@ public class LoginSignup extends AppCompatActivity {
                 }
             });
 
-        }
 
+        }
+        FirebaseMessaging.getInstance().subscribeToTopic("all");
     }
 
     public void setupdatabase(String email,String year,String name){
