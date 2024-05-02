@@ -64,7 +64,11 @@ public class NotificationActivity extends Activity {
 
                         items.clear();
                         for (DocumentSnapshot document : snapshots.getDocuments()) {
-                            items.add(document.getString("Time") + "\n\n" + document.getString("Title") + "\n\t\t\t" + document.getString("Message"));
+                            String time = document.getString("Time").trim();
+                            if (time.length() > 3) {
+                                time = time.substring(0, time.length() - 3);
+                            }
+                            items.add(time  + "\n\n" + document.getString("Message"));
                         }
                         itemsAdapter.notifyDataSetChanged();
 
