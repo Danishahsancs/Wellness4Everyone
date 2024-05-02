@@ -116,10 +116,10 @@ public class LoginSignup extends AppCompatActivity {
                             Intent intent = new Intent(LoginSignup.this, Manger_Menu.class);
                             startActivity(intent);
                         } else {
-                        Toast.makeText(LoginSignup.this, "Login Successful.", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginSignup.this, HomeActivity.class);
+                            Toast.makeText(LoginSignup.this, "Login Successful.", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginSignup.this, HomeActivity.class);
 
-                        startActivity(intent);
+                            startActivity(intent);
                         }
                         finish();
                     } else {
