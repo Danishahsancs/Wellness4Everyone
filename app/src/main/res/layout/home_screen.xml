@@ -7,12 +7,6 @@
     android:padding="0dp"
     android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerInside"
-        android:adjustViewBounds="true" />
-
     <LinearLayout
         android:id="@+id/headerBar"
         android:layout_width="match_parent"
@@ -31,22 +25,48 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/text_welcome"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="match_parent"
         android:layout_below="@id/headerBar"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="15dp"
-        android:paddingStart="20dp"
-        android:paddingEnd="20dp"
-        android:gravity="center"
-        android:textSize="25sp"
-        android:background="@drawable/home_widgets"
-        android:textAllCaps="false"/>
+        android:layout_above="@id/navBar" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <Button
+                android:id="@+id/text_welcome"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="20dp"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:gravity="center"
+                android:textSize="25sp"
+                android:background="@drawable/home_widgets"
+                android:textAllCaps="false"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_welcome"
+                android:layout_marginTop="30dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:textSize="35sp"
+                android:text="@string/m4w_header"
+                android:textStyle="bold"
+                android:textColor="@color/Secondarycolor"
+                android:textAlignment="center"
+                android:background="@drawable/roundedcorner_chart"/>
 
 
+        </RelativeLayout>
+
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/navBar"

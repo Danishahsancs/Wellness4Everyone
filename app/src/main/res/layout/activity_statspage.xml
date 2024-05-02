@@ -26,116 +26,81 @@
 
     </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/scrollview_1"
+    <RelativeLayout
+        android:id="@+id/layout_spinprompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/headerBar"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/roundedcorner_stats">
+
+        <TextView
+            android:id="@+id/text_spinprompt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:textSize="22sp"
+            android:text="@string/view_statsprompt" />
+        <Spinner
+            android:id="@+id/spinner_viewstats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_below="@id/text_spinprompt"
+            android:gravity="center"
+            android:entries="@array/activity_options" />
+
+    </RelativeLayout>
+
+
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/headerBar"
+        android:layout_below="@id/layout_spinprompt"
+        android:layout_above="@id/toggleView"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/roundedcorner_chart"
+        android:visibility="gone"/>
+
+    <LinearLayout
+        android:id="@+id/toggleView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_above="@id/navBar"
-        android:layout_margin="10dp">
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:visibility="gone">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <Switch
+            android:id="@+id/switch_wkMth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="60dp"
+            android:textOff="@string/weekly"
+            android:textOn="@string/monthly"
+            android:showText="true"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-            <TextView
-                android:id="@+id/walking_stats"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/walking_stats"
-                android:gravity="center"
-                android:layout_margin="10dp"
-                android:textSize="35sp"
-                android:background="@drawable/roundedcorner_stats"/>
-
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chart_walking"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/walking_stats"
-                android:layout_margin="10dp"
-                 />
-
-            <TextView
-                android:id="@+id/running_stats"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/running_stats"
-                android:gravity="center"
-                android:layout_margin="10dp"
-                android:layout_below="@id/chart_walking"
-                android:textSize="35sp"
-                android:background="@drawable/roundedcorner_stats"/>
-
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chart_running"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/running_stats"
-                android:layout_margin="10dp"
-                />
-
-            <TextView
-                android:id="@+id/weights_stats"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/weights_stats"
-                android:gravity="center"
-                android:layout_margin="10dp"
-                android:layout_below="@id/chart_running"
-                android:textSize="35sp"
-                android:background="@drawable/roundedcorner_stats"/>
-
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chart_weights"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/weights_stats"
-                android:layout_margin="10dp"
-                />
-
-            <TextView
-                android:id="@+id/swimming_stats"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/swimming_stats"
-                android:gravity="center"
-                android:layout_margin="10dp"
-                android:layout_below="@id/chart_weights"
-                android:textSize="35sp"
-                android:background="@drawable/roundedcorner_stats"/>
-
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chart_swimming"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@+id/swimming_stats"
-                android:layout_margin="10dp"
-                />
-
-            <TextView
-                android:id="@+id/biking_stats"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/biking_stats"
-                android:gravity="center"
-                android:layout_margin="10dp"
-                android:layout_below="@id/chart_swimming"
-                android:textSize="35sp"
-                android:background="@drawable/roundedcorner_stats"/>
-
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/chart_biking"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/biking_stats"
-                android:layout_margin="10dp"
-                />
-
-        </RelativeLayout>
+        <Switch
+            android:id="@+id/switch_durSteps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textOff="@string/steps"
+            android:textOn="@string/duration"
+            android:showText="true"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
 
-    </ScrollView>
+    </LinearLayout>
 
 
     <LinearLayout

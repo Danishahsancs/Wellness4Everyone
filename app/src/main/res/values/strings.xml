@@ -24,10 +24,11 @@
     <string name="enter_distance">Enter Distance:</string>
     <string name="enter_description">Enter Description:</string>
     <string name="save">Save</string>
+    <string name="view_statsprompt">Select an activity to view its stats:</string>
+    <string name="weekly">Weekly</string>
+    <string name="monthly">Monthly</string>
+    <string name="duration">Duration</string>
+    <string name="steps">Steps</string>
+    <string name="m4w_header">MOVE4WELLNESS CHALLENGE</string>
 
-    <string name="walking_stats">Walking Stats</string>
-    <string name="running_stats">Running Stats</string>
-    <string name="weights_stats">Weights Stats</string>
-    <string name="swimming_stats">Swimming Stats</string>
-    <string name="biking_stats">Biking Stats</string>
 </resources>
