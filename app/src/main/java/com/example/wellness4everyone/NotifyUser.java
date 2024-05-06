@@ -2,6 +2,7 @@ package com.example.wellness4everyone;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -21,6 +22,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
+import com.google.firebase.functions.FirebaseFunctions;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -77,6 +81,7 @@ public class NotifyUser extends AppCompatActivity {
         noti.put("Title",titleinput);
         noti.put("Message",mes);
         noti.put("Time",formattedDate);
+        noti.put("status", "pending");
 
         db.collection("usersinfo")
                 .get()
@@ -93,10 +98,15 @@ public class NotifyUser extends AppCompatActivity {
                         }
                     }
                 });
+
+
+
         Toast.makeText(NotifyUser.this, "Notification sent to all users ", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(NotifyUser.this, Manger_Menu.class);
         startActivity(intent);
     }
+
+
 
 
 }

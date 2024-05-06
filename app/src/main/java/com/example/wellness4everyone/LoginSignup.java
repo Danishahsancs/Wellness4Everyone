@@ -95,7 +95,7 @@ public class LoginSignup extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
-                        setupdatabase(email, usryear, usrname);
+                        setupDatabase(email, usryear, usrname);
                         Toast.makeText(LoginSignup.this, "Account created.", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginSignup.this, HomeActivity.class);
                         startActivity(intent);
@@ -105,6 +105,7 @@ public class LoginSignup extends AppCompatActivity {
                         Toast.makeText(LoginSignup.this, "Authentication failed: \n", Toast.LENGTH_SHORT).show();
                     }
                 }
+
             });
         } else {
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -112,17 +113,27 @@ public class LoginSignup extends AppCompatActivity {
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
-                        if(email.equalsIgnoreCase("danish28436@gmail.com")){
-                            Toast.makeText(LoginSignup.this, "Login Successful.", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginSignup.this, Manger_Menu.class);
-                            startActivity(intent);
-                        } else {
-                            Toast.makeText(LoginSignup.this, "Login Successful.", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginSignup.this, HomeActivity.class);
+                        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+                            @Override
+                            public void onComplete(@NonNull Task<String> tokenTask) {
+                                if (tokenTask.isSuccessful()) {
+                                    String newToken = tokenTask.getResult();
 
-                            startActivity(intent);
-                        }
-                        finish();
+                                    db.collection("usersinfo").document(email).update("fcmToken", newToken);
+                                    Toast.makeText(LoginSignup.this, "fcm token updated.", Toast.LENGTH_SHORT).show();
+                                }
+                                if(email.equalsIgnoreCase("danish28436@gmail.com")){
+                                    Toast.makeText(LoginSignup.this, "Login Successful.", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(LoginSignup.this, Manger_Menu.class);
+                                    startActivity(intent);
+                                } else {
+                                    Toast.makeText(LoginSignup.this, "Login Successful.", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(LoginSignup.this, HomeActivity.class);
+                                    startActivity(intent);
+                                }
+                                finish();
+                            }
+                        });
                     } else {
                         // If sign in fails, display a message to the user.
                         Toast.makeText(LoginSignup.this, "Authentication failed: \n", Toast.LENGTH_SHORT).show();
@@ -130,25 +141,47 @@ public class LoginSignup extends AppCompatActivity {
                 }
             });
 
-
+        }
+        FirebaseMessaging.getInstance().subscribeToTopic("allUsers");
+        if(email.equalsIgnoreCase("Danish28436@gmail.com")){
+            FirebaseMessaging.getInstance().unsubscribeFromTopic("allUsers");
         }
     }
 
-    public void setupdatabase(String email,String year,String name){
-        Map<String, Object> emptyData = new HashMap<>();
-        Map<String, Object> userInfo = new HashMap<>();
-        userInfo.put("email",email);
-        userInfo.put("name", name);
-        userInfo.put("participation year", year);
+    public void setupDatabase(String email, String year, String name) {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (task.isSuccessful()) {
+                    // Successfully retrieved the token
+                    String token = task.getResult();
 
+                    // Preparing user info with token
+                    Map<String, Object> userInfo = new HashMap<>();
+                    userInfo.put("email", email);
+                    userInfo.put("name", name);
+                    userInfo.put("participation year", year);
+                    userInfo.put("fcmToken", token);  // Adding the FCM token
 
-        db.collection("users").document(email).collection("walking").document("total").set(emptyData);
-        db.collection("users").document(email).collection("running").document("total").set(emptyData);
-        db.collection("users").document(email).collection("swimming").document("total").set(emptyData);
-        db.collection("users").document(email).collection("weightlifting").document("total").set(emptyData);
-        db.collection("users").document(email).collection("biking").document("total").set(emptyData);
-        db.collection("usersinfo").document(email).set(userInfo);
+                    // Storing user info in Firestore
+                    db.collection("usersinfo").document(email).set(userInfo);
 
+                    // Set empty data for activity collections
+                    Map<String, Object> emptyData = new HashMap<>();
+                    db.collection("users").document(email).collection("walking").document("total").set(emptyData);
+                    db.collection("users").document(email).collection("running").document("total").set(emptyData);
+                    db.collection("users").document(email).collection("swimming").document("total").set(emptyData);
+                    db.collection("users").document(email).collection("weightlifting").document("total").set(emptyData);
+                    db.collection("users").document(email).collection("biking").document("total").set(emptyData);
+
+                    Toast.makeText(LoginSignup.this, "User registered successfully with FCM token.", Toast.LENGTH_SHORT).show();
+                } else {
+                    // Handle the exception
+                    Toast.makeText(LoginSignup.this, "Failed to fetch FCM token: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
+
 
 }
