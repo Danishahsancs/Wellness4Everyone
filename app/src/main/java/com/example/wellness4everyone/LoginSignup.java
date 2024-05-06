@@ -120,7 +120,6 @@ public class LoginSignup extends AppCompatActivity {
                                     String newToken = tokenTask.getResult();
 
                                     db.collection("usersinfo").document(email).update("fcmToken", newToken);
-                                    Toast.makeText(LoginSignup.this, "fcm token updated.", Toast.LENGTH_SHORT).show();
                                 }
                                 if(email.equalsIgnoreCase("danish28436@gmail.com")){
                                     Toast.makeText(LoginSignup.this, "Login Successful.", Toast.LENGTH_SHORT).show();
@@ -174,7 +173,7 @@ public class LoginSignup extends AppCompatActivity {
                     db.collection("users").document(email).collection("weightlifting").document("total").set(emptyData);
                     db.collection("users").document(email).collection("biking").document("total").set(emptyData);
 
-                    Toast.makeText(LoginSignup.this, "User registered successfully with FCM token.", Toast.LENGTH_SHORT).show();
+
                 } else {
                     // Handle the exception
                     Toast.makeText(LoginSignup.this, "Failed to fetch FCM token: " + task.getException().getMessage(), Toast.LENGTH_LONG).show();
