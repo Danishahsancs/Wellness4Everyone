@@ -1,6 +1,8 @@
 package com.example.wellness4everyone;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -24,10 +26,15 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import android.Manifest;
+
 
 
 public class LoginSignup extends AppCompatActivity {
+    private static final int NOTIFICATION_REQUEST_CODE = 100; // You can use any integer here
+
     Switch toggle;
+
     EditText name;
     TextView year;
     Button lSbutton;
@@ -95,6 +102,7 @@ public class LoginSignup extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
+                        requestNotificationPermission();
                         setupDatabase(email, usryear, usrname);
                         Toast.makeText(LoginSignup.this, "Account created.", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(LoginSignup.this, HomeActivity.class);
@@ -181,6 +189,28 @@ public class LoginSignup extends AppCompatActivity {
             }
         });
     }
+
+    public void requestNotificationPermission() {
+        Toast.makeText(this, "request noti.", Toast.LENGTH_SHORT).show();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            Toast.makeText(this, "sdk is valid", Toast.LENGTH_SHORT).show();
+            requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, NOTIFICATION_REQUEST_CODE);
+        }
+        // On older Android versions, notifications are allowed by default.
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == NOTIFICATION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "Notification permission granted.", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Notification permission denied.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 
 
 }
