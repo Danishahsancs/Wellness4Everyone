@@ -11,11 +11,11 @@
     <LinearLayout
         android:id="@+id/headerBar"
         android:layout_width="match_parent"
-        android:layout_height="88dp"
+        android:layout_height="50dp"
         android:background="@color/primarycolor">
 
         <TextView
-            android:id="@+id/text_userhome"
+            android:id="@+id/text_notifications"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -52,7 +52,7 @@
         android:layout_height="75dp"
         android:layout_alignParentBottom="true"
         android:gravity="center"
-        android:background="@color/primarycolor"
+        android:background="@drawable/roundedcorner_top"
         android:orientation="horizontal"
         android:padding="15dp">
 

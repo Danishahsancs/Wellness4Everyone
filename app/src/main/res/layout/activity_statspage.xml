@@ -63,11 +63,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/layout_spinprompt"
-        android:layout_above="@id/toggleView"
+        android:layout_above="@id/text_averages"
         android:layout_marginStart="15dp"
         android:layout_marginEnd="15dp"
         android:background="@drawable/roundedcorner_chart"
         android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/text_averages"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/toggleView"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:textSize="22sp"
+        android:background="@drawable/roundedcorner_chart"
+        android:visibility="gone"
+        />
 
     <LinearLayout
         android:id="@+id/toggleView"

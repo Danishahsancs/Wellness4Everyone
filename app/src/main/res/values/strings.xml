@@ -17,7 +17,7 @@
     <string name="add_activity">Add Activity</string>
     <string name="view_stats">View Stats</string>
     <string name="view_activities">View Activites</string>
-    <string name="notifications">Notifications\n</string>
+    <string name="notifications">NOTIFICATIONS</string>
     <string name="activity_select_prompt">Select Activity:</string>
     <string name="enter_details">Enter Details:</string>
     <string name="select_date">Select Date:</string>
