@@ -93,7 +93,7 @@ public class HomeActivity extends Activity {
                 });
     }
 
-    class StepEntry {
+    public class StepEntry {
         private String userEmail;
         private long steps;
 
@@ -111,7 +111,7 @@ public class HomeActivity extends Activity {
         }
     }
 
-    class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.ViewHolder> {
+    public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.ViewHolder> {
         private ArrayList<StepEntry> stepEntries;
 
         public StepsAdapter(ArrayList<StepEntry> stepEntries) {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="8dp">
@@ -15,17 +16,19 @@
         android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/rank"
-        android:paddingLeft="10dp"
+        android:layout_toEndOf="@+id/rank"
+        android:paddingStart="10dp"
         android:textSize="16sp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        tools:ignore="RtlSymmetry" />
 
     <TextView
         android:id="@+id/steps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/email"
-        android:paddingLeft="10dp"
+        android:layout_toEndOf="@+id/email"
+        android:paddingStart="10dp"
         android:textSize="16sp"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        tools:ignore="RtlSymmetry" />
 </RelativeLayout>
