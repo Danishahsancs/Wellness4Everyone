@@ -1,6 +1,8 @@
 package com.example.wellness4everyone;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -24,10 +26,15 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import android.Manifest;
+
 
 
 public class LoginSignup extends AppCompatActivity {
+    private static final int NOTIFICATION_REQUEST_CODE = 100; // You can use any integer here
+
     Switch toggle;
+
     EditText name;
     TextView year;
     Button lSbutton;
@@ -181,6 +188,5 @@ public class LoginSignup extends AppCompatActivity {
             }
         });
     }
-
 
 }
