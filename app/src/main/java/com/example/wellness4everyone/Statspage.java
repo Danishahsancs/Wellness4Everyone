@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
 import androidx.core.content.ContextCompat;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,6 +40,7 @@ public class Statspage extends AppCompatActivity {
     private Switch switchWkMth, switchDurSteps;
     private LinearLayout toggleView;
     private Spinner spinnerActivity;
+    TextView textAverages;
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
     String email;
@@ -52,6 +55,7 @@ public class Statspage extends AppCompatActivity {
         switchDurSteps = findViewById(R.id.switch_durSteps);
         switchWkMth = findViewById(R.id.switch_wkMth);
         spinnerActivity = findViewById(R.id.spinner_viewstats);
+        textAverages = findViewById(R.id.text_averages);
 
         // sets up spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -66,6 +70,7 @@ public class Statspage extends AppCompatActivity {
         chart.setVisibility(View.INVISIBLE);
         switchDurSteps.setVisibility(View.INVISIBLE);
         switchWkMth.setVisibility(View.INVISIBLE);
+        textAverages.setVisibility(View.INVISIBLE);
 
         // handles spinner selections
         spinnerActivity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -76,6 +81,7 @@ public class Statspage extends AppCompatActivity {
                     chart.setVisibility(View.INVISIBLE);
                     switchDurSteps.setVisibility(View.INVISIBLE);
                     switchWkMth.setVisibility(View.INVISIBLE);
+                    textAverages.setVisibility(View.INVISIBLE);
                 } else {
                     toggleView.setVisibility(View.VISIBLE);
                     updateActivityData(activity);
@@ -128,6 +134,8 @@ public class Statspage extends AppCompatActivity {
                         QuerySnapshot querySnapshot = task.getResult();
                         List<BarEntry> entries = new ArrayList<>();
                         Map<String, Float> dataMap = new HashMap<>();
+                        float total = 0f;
+                        int count = 0;
 
                         for (QueryDocumentSnapshot document : querySnapshot) {
                             String date = document.getString("Date");
@@ -135,6 +143,16 @@ public class Statspage extends AppCompatActivity {
                             String stringValue = document.getString(dataKey);
                             Float value = Float.parseFloat(stringValue);
                             dataMap.put(date, value);
+                            total += value;
+                            count++;
+                        }
+
+                        if (count > 0) {
+                            float average = total / count;
+                            textAverages.setVisibility(View.VISIBLE);
+                            displayAverage(average, showDuration, showThirtyDays, involvesSteps);
+                        } else {
+                            textAverages.setVisibility(View.INVISIBLE);
                         }
 
                         entries.addAll(createEntriesForDays(dataMap, showThirtyDays ? 30 : 7));
@@ -176,6 +194,13 @@ public class Statspage extends AppCompatActivity {
         chart.getDescription().setEnabled(false);
         chart.animateY(1000);
 
+        chart.notifyDataSetChanged();
+        chart.invalidate(); // refresh
+
+        chartAppearance();
+    }
+
+    private void chartAppearance() {
         chart.getXAxis().setEnabled(false);
         chart.getAxisRight().setEnabled(false);
         chart.getLegend().setEnabled(false);
@@ -183,8 +208,19 @@ public class Statspage extends AppCompatActivity {
         chart.getAxisLeft().setTextColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
         chart.getAxisLeft().setAxisLineColor(ContextCompat.getColor(getApplicationContext(), R.color.white));
         chart.getAxisLeft().setTextSize(20f);
+    }
 
-        chart.invalidate(); // refresh
+    private void displayAverage(float average, boolean showDuration, boolean showThirtyDays, boolean involvesSteps) {
+        String unit = involvesSteps ? (showDuration ? "min" : "steps") : "min";
+        String timeFrame = showThirtyDays ? "month" : "week";
+
+        if (involvesSteps && !showDuration) {
+            average = Math.round(average);
+            textAverages.setText(String.format(Locale.getDefault(), "Average %s for past %s:\n%.0f %s", unit, timeFrame, average, unit));
+        } else {
+            average = Math.round(average * 100) / 100f;
+            textAverages.setText(String.format(Locale.getDefault(), "Average %s for past %s:\n%.2f %s", unit, timeFrame, average, unit));
+        }
     }
 
     public void changescreen(View view){
