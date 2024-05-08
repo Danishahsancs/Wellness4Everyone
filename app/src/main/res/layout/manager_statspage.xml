@@ -9,23 +9,30 @@
 
     >
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/headerBar"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/primarycolor">
-
+        android:layout_height="wrap_content"
+        android:padding="20dp"
+        android:background="@color/primarycolor"
+        >
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/backarrow"
+            android:onClick="goback"/>
         <TextView
-            android:id="@+id/text_userstats"
+            android:id="@+id/text_userhome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="@string/user_stats"
+            android:layout_centerInParent="true"
+            android:text="Choose A User"
             android:textAlignment="center"
             android:textColor="@color/Secondarycolor"
             android:textSize="30sp" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/layout_spinprompt"
@@ -127,51 +134,7 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="15dp"
-        android:background="@drawable/roundedcorner_top">
-
-        <ImageButton
-            android:id="@+id/homeButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            android:src="@drawable/homelogo"
-            android:tag="Homepage"
-            android:onClick="changescreen"/>
-
-        <ImageButton
-            android:id="@+id/notifyButton"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            android:src="@drawable/notifications"
-            android:tag="Notificationpage"
-            android:onClick="changescreen"/>
-
-        <ImageButton
-            android:id="@+id/statsbtn"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            android:src="@drawable/activity"
-            android:tag="Statspage"
-            android:onClick="changescreen"/>
-
-        <ImageButton
-            android:id="@+id/addscreenbtn"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="@null"
-            android:scaleType="fitCenter"
-            android:src="@drawable/addchart"
-            android:tag="Activitiespage"
-            android:onClick="changescreen"/>
+        >
     </LinearLayout>
 
 

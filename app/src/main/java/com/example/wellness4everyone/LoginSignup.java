@@ -1,8 +1,6 @@
 package com.example.wellness4everyone;
 
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -48,6 +46,22 @@ public class LoginSignup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.login_signup);
+
+        mAuth = FirebaseAuth.getInstance();
+        // Check if user is already logged in
+        if (mAuth.getCurrentUser() != null) {
+            // Get current user's email in lower case for case insensitive comparison
+            String userEmail = mAuth.getCurrentUser().getEmail();
+            if (userEmail != null && userEmail.equalsIgnoreCase("danish28436@gmail.com")) {
+                // If the logged-in user is the manager, redirect to Manager_Menu
+                startActivity(new Intent(LoginSignup.this, Manger_Menu.class));
+                finish(); // Finish the login activity so the user can't go back
+            } else {
+                // For other users, redirect to HomeActivity
+                startActivity(new Intent(LoginSignup.this, HomeActivity.class));
+                finish();
+            }
+        }
         toggle = (Switch) findViewById(R.id.Signupswitch);
         name = (EditText) findViewById(R.id.name);
         year = (TextView) findViewById(R.id.Yearjoin);

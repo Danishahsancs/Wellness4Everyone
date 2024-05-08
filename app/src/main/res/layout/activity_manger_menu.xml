@@ -141,6 +141,19 @@
                 android:textSize="40dp"
                 android:textColor="@color/primarycolor"/>
         </LinearLayout>
+
+        <Button
+            android:id="@+id/logoutbtn"
+            android:layout_marginTop="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:backgroundTint="@color/Secondarycolor"
+            android:textColor="@color/primarycolor"
+            android:text="Logout"
+            android:textSize="20sp"
+            android:onClick="logout"
+            />
     </LinearLayout>
 </LinearLayout>
 
