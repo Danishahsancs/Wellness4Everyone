@@ -194,7 +194,6 @@
         android:layout_height="75dp"
         android:layout_alignParentBottom="true"
         android:gravity="center"
-
         android:orientation="horizontal"
         android:padding="15dp">
 

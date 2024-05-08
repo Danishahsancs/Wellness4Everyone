@@ -13,6 +13,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
@@ -20,6 +21,7 @@ public class Manger_Menu extends AppCompatActivity {
     ImageButton UA;
     ImageButton GS;
     ImageButton NU;
+    FirebaseAuth mAuth;
     TextView numofusers;
 
     @Override
@@ -31,6 +33,7 @@ public class Manger_Menu extends AppCompatActivity {
         GS =(ImageButton) findViewById(R.id.button_group_stats);
         NU = (ImageButton) findViewById(R.id.button_notify_user);
         numofusers = (TextView) findViewById(R.id.userAmmount);
+
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         db.collection("usersinfo")
                 .get()
@@ -67,4 +70,11 @@ public class Manger_Menu extends AppCompatActivity {
         }
         startActivity(intent);
     }
+    public void logout (View view){
+        mAuth.getInstance().signOut();
+        // After logout, redirect to Login Activity
+        startActivity(new Intent(Manger_Menu.this, LoginSignup.class));
+        finish();  // Finish the current activity to p
+    }
+
 }
