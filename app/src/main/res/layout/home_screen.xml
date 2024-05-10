@@ -29,7 +29,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/headerBar"
-        android:layout_above="@id/navBar" >
+        android:layout_above="@id/navBar"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -48,44 +50,190 @@
                 android:textSize="25sp"
                 android:background="@drawable/home_widgets"
                 android:textAllCaps="false"/>
+            
+            <View
+                android:id="@+id/breakline1"
+                android:layout_width="match_parent"
+                android:layout_height=".6dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="75dp"
+                android:layout_marginEnd="75dp"
+                android:layout_below="@id/text_welcome"
+                android:background="@color/white"/>
 
             <RelativeLayout
+                android:id="@+id/layout_m4wc_title"
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
-                android:layout_below="@id/text_welcome"
-                android:layout_marginTop="30dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/breakline1"
+                android:layout_marginTop="20dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:background="@drawable/roundedcorner_chart">
+                android:background="@drawable/roundedcorner_home">
 
                 <TextView
                     android:id="@+id/text_m4wc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
                     android:text="@string/m4w_header"
                     android:textSize="35sp"
                     android:textStyle="bold"
                     android:textColor="@color/Secondarycolor"
                     android:textAlignment="center"/>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_m4wcrank"
+                <TextView
+                    android:id="@+id/text_m4wc_weeks"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/text_m4wc"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@drawable/roundedcorner_ranks"/>
-
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="8dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"/>
 
             </RelativeLayout>
 
+            <RelativeLayout
+                android:id="@+id/layout_m4wc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_m4wc_title"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/roundedcorner_home">
 
+                <RelativeLayout
+                    android:id="@+id/layout_progbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp">
 
+                    <ProgressBar
+                        android:id="@+id/progbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:indeterminate="false"
+                        android:indeterminateTint="@color/Secondarycolor" />
 
+                    <TextView
+                        android:id="@+id/text_progbar_percent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="50sp"
+                        android:layout_centerInParent="true"/>
+                </RelativeLayout>
 
+                <TextView
+                    android:id="@+id/text_m4wc2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/layout_progbar"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layout_m4wc_steps"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/layout_m4wc"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/roundedcorner_chart">
+
+                <TextView
+                    android:id="@+id/textview1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="You've completed"
+                    android:textSize="20sp"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:id="@+id/text_steps"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="60sp"
+                    android:textColor="@color/Secondarycolor"
+                    android:layout_below="@id/textview1"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_steps"
+                    android:text="steps since the challenge."
+                    android:textSize="20sp"
+                    android:textAlignment="center"/>
+
+            </RelativeLayout>
+
+            <View
+                android:id="@+id/breakline2"
+                android:layout_width="match_parent"
+                android:layout_height=".6dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="75dp"
+                android:layout_marginEnd="75dp"
+                android:layout_below="@id/layout_m4wc_steps"
+                android:background="@color/white"/>
+
+            <RelativeLayout
+                android:id="@+id/layout_qotd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/breakline2"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/roundedcorner_home">
+
+                <TextView
+                    android:id="@+id/text_qotd_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/qotd_title"
+                    android:textSize="35sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/Secondarycolor"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:id="@+id/text_quote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_qotd_title"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:textSize="20sp"
+                    android:textStyle="italic"
+                    android:textColor="@color/white"
+                    android:textAlignment="center"/>
+
+                <TextView
+                    android:id="@+id/text_quote_author"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/text_quote"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="20dp"
+                    android:textColor="@color/white"
+                    android:textAlignment="textEnd"/>
+
+            </RelativeLayout>
 
         </RelativeLayout>
 

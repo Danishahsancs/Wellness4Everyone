@@ -152,7 +152,7 @@ public class Statspage extends AppCompatActivity {
                                 Float value = Float.parseFloat(stringValue);
                                 dataMap.put(formattedDate, value);
 
-                                if (formattedDate.compareTo(dateThreshold) >= 0) {
+                                if (formattedDate.compareTo(dateThreshold) > 0) {
                                     total += value;
                                     count++;
                                 }
