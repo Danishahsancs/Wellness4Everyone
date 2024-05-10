@@ -12,6 +12,7 @@
         android:id="@+id/headerBar"
         android:layout_width="match_parent"
         android:layout_height="88dp"
+        android:background="@color/primarycolor"
         >
 
         <TextView
@@ -32,7 +33,6 @@
         android:layout_below="@+id/headerBar"
         android:layout_above="@id/navBar"
         android:orientation="vertical"
-        android:background="@color/primarycolor"
         android:padding="10dp">
 
         <LinearLayout
@@ -154,7 +154,7 @@
                 android:layout_weight="1"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
-                app:lottie_rawRes="@raw/swimming_animation"/>
+                app:lottie_rawRes="@raw/updated_swimming_animation"/>
         </LinearLayout>
 
         <LinearLayout
@@ -195,7 +195,8 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="15dp">
+        android:padding="15dp"
+        android:background="@color/primarycolor">
 
         <ImageButton
             android:id="@+id/homeButton"

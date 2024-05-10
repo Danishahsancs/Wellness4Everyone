@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -27,9 +28,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 
-
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -119,7 +123,7 @@ public class AddActivityActivity extends Activity {
                     @Override
                     public void onDateSet(DatePicker view, int yearx, int monthOfYear, int dayOfMonth) {
                         year = yearx;
-                        month = monthOfYear + 1;
+                        month = monthOfYear;
                         day = dayOfMonth;
                         updateResults();
                     }
@@ -163,7 +167,7 @@ public class AddActivityActivity extends Activity {
 
         StringBuilder sb = new StringBuilder();
         sb.append("Summary:");
-        sb.append("\n\t\t\t\t"+month+"/"+day+"/"+year);
+        sb.append("\n\t\t\t\t"+(month+1)+"/"+day+"/"+year);
         if(!mins.isEmpty()) {
             sb.append("\n\t\t\t\tNumber of minutes " + activityTag + ": " + mins);
         }
@@ -176,7 +180,7 @@ public class AddActivityActivity extends Activity {
 
     public void saveworkout(View view){
         Map<String, Object> workout = new HashMap<>();
-        String date = (month + "-" + day + "-" + year); // Use for document ID
+        String date = ((month+1) + "-" + day + "-" + year); // Use for document ID
         workout.put("Date", date); // Use the formatted date as the value
         workout.put("Minutes", enterMins.getText().toString().trim());
 
@@ -210,7 +214,7 @@ public class AddActivityActivity extends Activity {
                             .collection(activityTag)
                             .document(date).set(workout);
                     Toast.makeText(AddActivityActivity.this, activityTag + " activity added\n", Toast.LENGTH_SHORT).show();
-                    updatetotal();
+                    updatetotal(date,activityTag,workout);
                     Intent intent = new Intent(AddActivityActivity.this, Activitieslist.class);
                     startActivity(intent);
                 }
@@ -219,55 +223,51 @@ public class AddActivityActivity extends Activity {
 
     }
 
-    public void updatetotal(){
+    private void updatetotal(String date, String activityTag, Map<String, Object> workout) {
 
+        String formattedDate = reformatDateForComparison(date);
 
-
-
-        db.collection("users")
-                .document(email)
-                .collection(activityTag)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection(activityTag)
+                .document(date)
+                .get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        int totalMinutes = 0;
-                        int totalSteps = 0;
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                         if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                if (!document.getId().equals("total")) {
-                                    String minutesString = document.getString("Minutes");
-                                    int minutes =Integer.parseInt(minutesString);
-                                    totalMinutes += minutes;
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                int minutes = Integer.parseInt(document.getString("Minutes"));
+                                int tempMins = minutes+ Integer.parseInt(enterMins.getText().toString().trim());
+                                workout.put("Minutes",String.valueOf(tempMins));
 
-                                    if(activityTag.equals("walking")|| activityTag.equals("running")){
-                                        String stepsString = document.getString("Steps");
-                                        int steps = Integer.parseInt(stepsString);
-                                        totalSteps += steps;
-                                    }
-
-
+                                if(activityTag.equals("walking")|| activityTag.equals("running")){
+                                    int steps = Integer.parseInt(document.getString("Steps"));
+                                    int tempSteps =steps + Integer.parseInt(enterSteps.getText().toString().trim());
+                                    workout.put("Steps",String.valueOf(tempSteps));
                                 }
+
                             }
+                            workout.put("Date",formattedDate);
 
-
-                            Map<String, Object> totalData = new HashMap<>();
-                            totalData.put("Minutes", totalMinutes);
-                            if(activityTag.equals("walking")|| activityTag.equals("running")){
-                                totalData.put("Steps", totalSteps);
-                            }
-
-
-                            db.collection("users")
-                                    .document(email)
-                                    .collection(activityTag)
-                                    .document("total")
-                                    .set(totalData);
+                            db.collection(activityTag)
+                                    .document(date)
+                                    .set(workout);
                         }
                     }
                 });
     }
 
+    private String reformatDateForComparison(String originalDate) {
+        try {
+            SimpleDateFormat originalFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
+            SimpleDateFormat targetFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+            Date date = originalFormat.parse(originalDate);
+            assert date != null;
+            return targetFormat.format(date);
+        } catch (ParseException e) {
+            Log.e("DateError", "Error parsing date: " + originalDate, e);
+            return null;
+        }
+    }
 
 }
 

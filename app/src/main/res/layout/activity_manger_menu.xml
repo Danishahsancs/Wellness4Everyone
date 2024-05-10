@@ -5,10 +5,11 @@
     android:orientation="vertical">
 
     <TextView
+        android:background="@color/primarycolor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="75dp"
-        android:layout_marginTop="20dp"
+        android:padding="5dp"
         android:gravity="center"
         android:text="Manager Home"
         android:textColor="@color/Secondarycolor"
@@ -17,7 +18,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/primarycolor"
+
         android:orientation="vertical"
         android:weightSum="3"
         android:padding="16dp"
