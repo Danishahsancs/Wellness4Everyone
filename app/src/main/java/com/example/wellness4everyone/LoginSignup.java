@@ -188,11 +188,11 @@ public class LoginSignup extends AppCompatActivity {
 
                     // Set empty data for activity collections
                     Map<String, Object> emptyData = new HashMap<>();
-                    db.collection("users").document(email).collection("walking").document("total").set(emptyData);
-                    db.collection("users").document(email).collection("running").document("total").set(emptyData);
-                    db.collection("users").document(email).collection("swimming").document("total").set(emptyData);
-                    db.collection("users").document(email).collection("weightlifting").document("total").set(emptyData);
-                    db.collection("users").document(email).collection("biking").document("total").set(emptyData);
+                    db.collection("users").document(email).collection("walking");
+                    db.collection("users").document(email).collection("running");
+                    db.collection("users").document(email).collection("swimming");
+                    db.collection("users").document(email).collection("weightlifting");
+                    db.collection("users").document(email).collection("biking");
 
 
                 } else {

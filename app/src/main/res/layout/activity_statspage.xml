@@ -45,7 +45,8 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:textSize="22sp"
-            android:text="@string/view_statsprompt" />
+            android:text="@string/view_statsprompt"
+            android:textColor="@color/primarycolor" />
         <Spinner
             android:id="@+id/spinner_viewstats"
             android:layout_width="wrap_content"
@@ -54,7 +55,8 @@
             android:layout_marginEnd="20dp"
             android:layout_below="@id/text_spinprompt"
             android:gravity="center"
-            android:entries="@array/activity_options" />
+            android:entries="@array/activity_options"
+            android:outlineSpotShadowColor="@color/primarycolor"/>
 
     </RelativeLayout>
 
