@@ -250,4 +250,8 @@ public class HomeActivity extends Activity {
         startActivity(intent);
 
     }
+    public void gomenu(View view){
+        Intent intent = new Intent(HomeActivity.this, menu.class);
+        startActivity(intent);
+    }
 }

@@ -15,7 +15,6 @@ public class MyApp extends Application {
     }
 
     private void createNotificationChannel() {
-        Toast.makeText(MyApp.this, "notification channel created", Toast.LENGTH_SHORT).show();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence name = "General Notifications";
             String description = "Includes all the general notifications.";
