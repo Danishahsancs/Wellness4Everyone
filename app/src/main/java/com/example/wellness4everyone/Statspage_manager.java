@@ -25,9 +25,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -37,6 +39,7 @@ public class Statspage_manager extends AppCompatActivity {
     private BarChart chart;
     private FirebaseFirestore firestore;
     private final SimpleDateFormat dateFormat = new SimpleDateFormat("M-d-yyyy", Locale.getDefault());
+    private final SimpleDateFormat outputDateFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
     private Switch switchWkMth, switchDurSteps;
     private LinearLayout toggleView;
     private Spinner spinnerActivity;
@@ -126,9 +129,10 @@ public class Statspage_manager extends AppCompatActivity {
     private void updateChartData(boolean showDuration, boolean showThirtyDays, String activity, boolean involvesSteps) {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
+        String dateThreshold = getPastDate(showThirtyDays ? 30 : 7);
 
         firestore.collection("users").document(email).collection(activity)
-                .whereGreaterThanOrEqualTo("Date", getPastDate(showThirtyDays ? 30 : 7))
+                .whereGreaterThanOrEqualTo("Date", dateThreshold)
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
@@ -140,12 +144,23 @@ public class Statspage_manager extends AppCompatActivity {
 
                         for (QueryDocumentSnapshot document : querySnapshot) {
                             String date = document.getString("Date");
-                            String dataKey = involvesSteps ? (showDuration ? "Minutes" : "Steps") : "Minutes";
-                            String stringValue = document.getString(dataKey);
-                            Float value = Float.parseFloat(stringValue);
-                            dataMap.put(date, value);
-                            total += value;
-                            count++;
+                            try {
+                                Date parsedDate = dateFormat.parse(date); // parses the date from Firestore using "M-d-yyyy"
+                                String formattedDate = outputDateFormat.format(parsedDate); // reformats to "MM-dd-yyyy"
+
+                                String dataKey = involvesSteps ? (showDuration ? "Minutes" : "Steps") : "Minutes";
+                                String stringValue = document.getString(dataKey);
+                                Float value = Float.parseFloat(stringValue);
+                                dataMap.put(formattedDate, value);
+
+                                if (formattedDate.compareTo(dateThreshold) > 0) {
+                                    total += value;
+                                    count++;
+                                }
+
+                            } catch (ParseException e) {
+                                Log.e("DateConversionError", "Error parsing date: " + date, e);
+                            }
                         }
 
                         if (count > 0) {
@@ -160,7 +175,7 @@ public class Statspage_manager extends AppCompatActivity {
                         updateChart(entries, showDuration && involvesSteps ? "Minutes" : "Steps");
                     } else {
                         // Handle failures
-                        Log.e("FirestoreError", "Error fetching data: ", task.getException()); // temporal
+                        Log.e("FirestoreError", "Error fetching data: ", task.getException());
                     }
                 });
     }
@@ -168,7 +183,7 @@ public class Statspage_manager extends AppCompatActivity {
     private String getPastDate(int days) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, -days);
-        return dateFormat.format(calendar.getTime());
+        return outputDateFormat.format(calendar.getTime());
     }
 
     private List<BarEntry> createEntriesForDays(Map<String, Float> dataMap, int days) {
@@ -176,7 +191,7 @@ public class Statspage_manager extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
 
         for (int i = 0; i < days; i++) {
-            String dateKey = dateFormat.format(calendar.getTime());
+            String dateKey = outputDateFormat.format(calendar.getTime());
             float value = dataMap.getOrDefault(dateKey, 0f);
             entries.add(new BarEntry(i, value));
             calendar.add(Calendar.DATE, -1); // resets calendar
