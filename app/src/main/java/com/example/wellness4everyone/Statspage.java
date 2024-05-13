@@ -144,8 +144,8 @@ public class Statspage extends AppCompatActivity {
                         for (QueryDocumentSnapshot document : querySnapshot) {
                             String date = document.getString("Date");
                             try {
-                                Date parsedDate = dateFormat.parse(date); // Parse the date from Firestore using "M-d-yyyy"
-                                String formattedDate = outputDateFormat.format(parsedDate); // Reformat to "MM-dd-yyyy"
+                                Date parsedDate = dateFormat.parse(date); // parses the date from Firestore using "M-d-yyyy"
+                                String formattedDate = outputDateFormat.format(parsedDate); // reformats to "MM-dd-yyyy"
 
                                 String dataKey = involvesSteps ? (showDuration ? "Minutes" : "Steps") : "Minutes";
                                 String stringValue = document.getString(dataKey);
@@ -174,7 +174,7 @@ public class Statspage extends AppCompatActivity {
                         updateChart(entries, showDuration && involvesSteps ? "Minutes" : "Steps");
                     } else {
                         // Handle failures
-                        Log.e("FirestoreError", "Error fetching data: ", task.getException()); // temporal
+                        Log.e("FirestoreError", "Error fetching data: ", task.getException());
                     }
                 });
     }
