@@ -1,6 +1,9 @@
 package com.example.wellness4everyone;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -71,7 +74,7 @@ public class LoginSignup extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
 
-        year.setText("Year of Participation: "+ Calendar.getInstance().get(Calendar.YEAR));
+        year.setText("Year of Participation: " + Calendar.getInstance().get(Calendar.YEAR));
 
     }
 
@@ -116,11 +119,9 @@ public class LoginSignup extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()) {
+                        asknotiandsub();
                         setupDatabase(email, usryear, usrname);
                         Toast.makeText(LoginSignup.this, "Account created.", Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(LoginSignup.this, HomeActivity.class);
-                        startActivity(intent);
-                        finish();
                     } else {
                         // If sign in fails, display a message to the user.
                         Toast.makeText(LoginSignup.this, "Authentication failed: \n", Toast.LENGTH_SHORT).show();
@@ -128,6 +129,8 @@ public class LoginSignup extends AppCompatActivity {
                 }
 
             });
+
+
         } else {
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
@@ -142,7 +145,7 @@ public class LoginSignup extends AppCompatActivity {
 
                                     db.collection("usersinfo").document(email).update("fcmToken", newToken);
                                 }
-                                if(email.equalsIgnoreCase("danish28436@gmail.com")){
+                                if (email.equalsIgnoreCase("danish28436@gmail.com")) {
                                     Toast.makeText(LoginSignup.this, "Login Successful.", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginSignup.this, Manger_Menu.class);
                                     startActivity(intent);
@@ -154,6 +157,7 @@ public class LoginSignup extends AppCompatActivity {
                                 finish();
                             }
                         });
+
                     } else {
                         // If sign in fails, display a message to the user.
                         Toast.makeText(LoginSignup.this, "Authentication failed: \n", Toast.LENGTH_SHORT).show();
@@ -161,10 +165,6 @@ public class LoginSignup extends AppCompatActivity {
                 }
             });
 
-        }
-        FirebaseMessaging.getInstance().subscribeToTopic("allUsers");
-        if(email.equalsIgnoreCase("Danish28436@gmail.com")){
-            FirebaseMessaging.getInstance().unsubscribeFromTopic("allUsers");
         }
     }
 
@@ -203,4 +203,72 @@ public class LoginSignup extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 99) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this, "ALLOWED", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "DENIED", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+
+    public void asknotiandsub() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermissions(new String[]{Manifest.permission.POST_NOTIFICATIONS}, 99);
+        }
+
+        if (!isFinishing() && !isDestroyed()) {
+            new AlertDialog.Builder(LoginSignup.this)
+                    .setTitle("Subscribe to Manager Notifications")
+                    .setMessage("Would you like to subscribe to Manager notifications")
+                    .setPositiveButton("Subscribe", (dialog, which) -> {
+                        FirebaseMessaging.getInstance().subscribeToTopic("allUsers");
+                        proceedToNextActivity();
+                    })
+                    .setNegativeButton("Unsubscribe", (dialog, which) -> {
+                        FirebaseMessaging.getInstance().unsubscribeFromTopic("allUsers");
+                        proceedToNextActivity();
+                        dialog.dismiss();
+                    })
+                    .show();
+        }
+    }
+
+    private void proceedToNextActivity() {
+        String email = emailInput.getText().toString();
+        if (email.equalsIgnoreCase("danish28436@gmail.com")) {
+            Toast.makeText(LoginSignup.this, "Login Successful.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(LoginSignup.this, Manger_Menu.class);
+            startActivity(intent);
+        } else {
+            Toast.makeText(LoginSignup.this, "Login Successful.", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(LoginSignup.this, HomeActivity.class);
+            startActivity(intent);
+        }
+    }
+    public void sendPasswordReset(View view) {
+        String email = emailInput.getText().toString();
+        if (TextUtils.isEmpty(email)) {
+            Toast.makeText(LoginSignup.this, "enter an email in order to send password reset link", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        mAuth.sendPasswordResetEmail(email)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(LoginSignup.this, "Reset link sent to "+email, Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(LoginSignup.this, "Failed to send reset to "+email, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+
+    }
 }
+

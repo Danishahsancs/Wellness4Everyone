@@ -49,7 +49,6 @@ public class GroupStats extends AppCompatActivity {
 
     public void getStats(String activity, String term) {
         String startDate = getStartDateBasedOnTerm(term);
-        Toast.makeText(GroupStats.this, startDate, Toast.LENGTH_SHORT).show();
         int days = getDaysBasedOnTerm(term);
 
         if (startDate.isEmpty() || days == 0) {
