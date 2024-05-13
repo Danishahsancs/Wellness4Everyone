@@ -101,7 +101,7 @@ public class AddActivityActivity extends Activity {
                 lottieAnimationView.playAnimation();
                 break;
             case "swimming":
-                lottieAnimationView.setAnimation(R.raw.swimming_animation);
+                lottieAnimationView.setAnimation(R.raw.updated_swimming_animation);
                 lottieAnimationView.playAnimation();
                 break;
             case "biking":

@@ -54,7 +54,7 @@
                 android:text="Walking"
                 android:textColor="@color/primarycolor"
                 android:textStyle="bold"
-                android:textSize="20sp"/>
+                android:textSize="25sp"/>
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottieWalking"
@@ -85,7 +85,7 @@
                 android:text="Running"
                 android:textColor="@color/primarycolor"
                 android:textStyle="bold"
-                android:textSize="20sp"/>
+                android:textSize="25sp"/>
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottieRunning"
@@ -115,7 +115,7 @@
                 android:text="Weights"
                 android:textColor="@color/primarycolor"
                 android:textStyle="bold"
-                android:textSize="20sp"/>
+                android:textSize="25sp"/>
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottieWeights"
@@ -145,7 +145,7 @@
                 android:text="Swimming"
                 android:textColor="@color/primarycolor"
                 android:textStyle="bold"
-                android:textSize="20sp"/>
+                android:textSize="25sp"/>
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottieSwimming"
@@ -175,7 +175,7 @@
                 android:text="Biking"
                 android:textColor="@color/primarycolor"
                 android:textStyle="bold"
-                android:textSize="20sp"/>
+                android:textSize="25sp"/>
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottieBiking"
