@@ -31,5 +31,6 @@
     <string name="steps">Steps</string>
     <string name="m4w_header">MOVE4WELLNESS CHALLENGE</string>
     <string name="qotd_title">QUOTE OF THE DAY</string>
+    <string name="forgot_password"><u>Forgot Password?</u></string>
 
 </resources>
