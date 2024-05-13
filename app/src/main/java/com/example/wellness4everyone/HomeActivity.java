@@ -47,13 +47,13 @@ public class HomeActivity extends Activity {
     TextView textQuoteAuthor;
     SharedPreferences prefs;
     private final List<TimePeriod> timePeriods = Arrays.asList(
-            new TimePeriod("03-17-2024", "03-30-2024", "WEEKS 1&2"),
-            new TimePeriod("03-31-2024", "04-13-2024", "WEEKS 3&4"),
-            new TimePeriod("04-14-2024", "04-27-2024", "WEEKS 5&6"),
-            new TimePeriod("04-28-2024", "05-11-2024", "WEEKS 7&8"),
-            new TimePeriod("05-12-2024", "05-25-2024", "WEEKS 9&10"),
-            new TimePeriod("05-26-2024", "06-08-2024", "WEEKS 11&12"),
-            new TimePeriod("06-09-2024", "06-22-2024", "WEEKS 13&14")
+            new TimePeriod("03-17-2024", "03-31-2024", "WEEKS 1&2"),
+            new TimePeriod("03-31-2024", "04-14-2024", "WEEKS 3&4"),
+            new TimePeriod("04-14-2024", "04-28-2024", "WEEKS 5&6"),
+            new TimePeriod("04-28-2024", "05-12-2024", "WEEKS 7&8"),
+            new TimePeriod("05-12-2024", "05-26-2024", "WEEKS 9&10"),
+            new TimePeriod("05-26-2024", "06-09-2024", "WEEKS 11&12"),
+            new TimePeriod("06-09-2024", "06-23-2024", "WEEKS 13&14")
     );
     private SimpleDateFormat dateFormatter = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());
     int totalSteps = 0;
