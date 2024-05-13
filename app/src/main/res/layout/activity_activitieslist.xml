@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:padding="0dp"
     android:orientation="vertical"
     >
@@ -11,7 +12,7 @@
     <LinearLayout
         android:id="@+id/headerBar"
         android:layout_width="match_parent"
-        android:layout_height="88dp"
+        android:layout_height="50dp"
         android:background="@color/primarycolor"
         >
 
@@ -23,7 +24,8 @@
             android:text="Activities List"
             android:textAlignment="center"
             android:textColor="@color/Secondarycolor"
-            android:textSize="30sp" />
+            android:textStyle="bold"
+            android:textSize="24sp" />
 
     </LinearLayout>
 
@@ -196,7 +198,7 @@
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="15dp"
-        android:background="@color/primarycolor">
+        android:background="@drawable/roundedcorner_top">
 
         <ImageButton
             android:id="@+id/homeButton"

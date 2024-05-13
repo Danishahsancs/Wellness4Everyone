@@ -1,5 +1,6 @@
 package com.example.wellness4everyone;
 
+import android.animation.ObjectAnimator;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,14 +10,19 @@ import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 
-
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -32,19 +38,12 @@ import java.util.Random;
 
 
 public class HomeActivity extends Activity {
-
-    Button welcomeWidget;
     private FirebaseFirestore firestore;
-    private TextView textSteps;
+    private TextView textSteps, progBarPercent, statusText, weeksLabel, textQuote, textQuoteAuthor, welcomeUser;
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
     String email;
-    TextView progBarPercent;
-    TextView statusText;
-    ProgressBar progBar;
-    TextView weeksLabel;
-    TextView textQuote;
-    TextView textQuoteAuthor;
+    CircularProgressIndicator progBar;
     SharedPreferences prefs;
     private final List<TimePeriod> timePeriods = Arrays.asList(
             new TimePeriod("03-17-2024", "03-31-2024", "WEEKS 1&2"),
@@ -63,8 +62,16 @@ public class HomeActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_screen);
 
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        if (currentUser == null) {
+            Log.e("FirebaseAuth", "No user logged in");
+            return;
+        }
+
         // initialize views
         firestore = FirebaseFirestore.getInstance();
+        welcomeUser = findViewById(R.id.text_username);
         textSteps = findViewById(R.id.text_steps);
         progBarPercent = findViewById(R.id.text_progbar_percent);
         statusText = findViewById(R.id.text_m4wc2);
@@ -78,19 +85,26 @@ public class HomeActivity extends Activity {
         updateWeeksDisplay();
         updateQuote();
 
-        welcomeWidget = (Button) findViewById(R.id.text_welcome);
-        String welcomeText = "<big><b>Welcome back!</b></big><br/><br/>" +
-                "<small>Kick off your day by starting a new activity.</small>";
-        welcomeWidget.setText(Html.fromHtml(welcomeText, Html.FROM_HTML_MODE_LEGACY));
-
-        welcomeWidget.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, AddActivityActivity.class);
-                startActivity(intent);
-            }
-        });
-
+        String userEmail = currentUser.getEmail();
+        firestore.collection("usersinfo").document(userEmail)
+                .get()
+                .addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                        if (task.isSuccessful()) {
+                            DocumentSnapshot document = task.getResult();
+                            if (document.exists()) {
+                                String username = document.getString("name");
+                                if (username == null) username = userEmail;
+                                welcomeUser.setText(username + "!");
+                            } else {
+                                Log.d("Document", "No such document");
+                            }
+                        } else {
+                            Log.d("Database", "get failed with ", task.getException());
+                        }
+                    }
+                });
     }
 
     private void updateWeeksDisplay() {
@@ -105,12 +119,6 @@ public class HomeActivity extends Activity {
     }
 
     private void fetchWalkingSteps(String startDateStr, String endDateStr) {
-        mAuth = FirebaseAuth.getInstance();
-        currentUser = mAuth.getCurrentUser();
-        if (currentUser == null) {
-            Log.e("FirebaseAuth", "No user logged in");
-            return;
-        }
         email = currentUser.getEmail();
 
         SimpleDateFormat inputDateFormat = new SimpleDateFormat("M-d-yyyy", Locale.getDefault());
@@ -153,7 +161,11 @@ public class HomeActivity extends Activity {
         progressPercentage = Math.min(progressPercentage, 100);
 
         progBarPercent.setText(progressPercentage + "%");
-        progBar.setProgress(progressPercentage);
+
+        ObjectAnimator animation = ObjectAnimator.ofInt(progBar, "progress", 0, progressPercentage);
+        animation.setDuration(1000);
+        animation.setInterpolator(new DecelerateInterpolator());
+        animation.start();
 
         if (totalSteps < 100000) {
             statusText.setText("of 100k steps.");
@@ -233,7 +245,7 @@ public class HomeActivity extends Activity {
         Intent intent;
         switch (tag) {
             case "Notificationpage":
-                intent = new Intent(HomeActivity.this,NotificationActivity.class);
+                intent = new Intent(HomeActivity.this, NotificationActivity.class);
                 break;
             case "Statspage":
                 intent = new Intent(HomeActivity.this, Statspage.class);

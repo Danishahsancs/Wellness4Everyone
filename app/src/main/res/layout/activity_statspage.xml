@@ -21,9 +21,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/user_stats"
+            android:textStyle="bold"
             android:textAlignment="center"
             android:textColor="@color/Secondarycolor"
-            android:textSize="30sp" />
+            android:textSize="24sp" />
 
     </LinearLayout>
 

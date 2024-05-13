@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
             android:layout_marginLeft="3dp"
+            android:layout_centerVertical="true"
             android:background="@drawable/circle"
             android:src="@drawable/person"
             android:onClick="gomenu" />
@@ -25,7 +26,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="Home"
+            android:text="@string/user_home"
             android:textStyle="bold"
             android:textSize="24sp"
             android:layout_marginTop="8dp"
@@ -42,31 +43,37 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" >
+            android:layout_height="wrap_content" >
 
-            <Button
+            <TextView
                 android:id="@+id/text_welcome"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:layout_marginTop="20dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:gravity="center"
-                android:textSize="25sp"
-                android:background="@drawable/home_widgets"
-                android:textAllCaps="false"
-                android:textColor="@color/primarycolor"/>
-            
+                android:text="Welcome back, "
+                android:textSize="40sp"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/text_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_welcome"
+                android:textSize="40sp"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
             <View
                 android:id="@+id/breakline1"
                 android:layout_width="match_parent"
-                android:layout_height=".6dp"
-                android:layout_marginTop="20dp"
+                android:layout_height="2dp"
+                android:layout_marginTop="25dp"
                 android:layout_marginStart="75dp"
                 android:layout_marginEnd="75dp"
-                android:layout_below="@id/text_welcome"
+                android:layout_below="@id/text_username"
                 android:background="@color/white"/>
 
             <RelativeLayout
@@ -118,12 +125,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp">
 
-                    <ProgressBar
+                    <com.google.android.material.progressindicator.CircularProgressIndicator
                         android:id="@+id/progbar"
-                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_width="match_parent"
+                        android:layout_centerInParent="true"
                         android:indeterminate="false"
-                        android:indeterminateTint="@color/Secondarycolor" />
+                        android:indeterminateTint="@color/Secondarycolor"
+                        style="@style/CustomCircularProgress"/>
 
                     <TextView
                         android:id="@+id/text_progbar_percent"
@@ -186,7 +195,7 @@
             <View
                 android:id="@+id/breakline2"
                 android:layout_width="match_parent"
-                android:layout_height=".6dp"
+                android:layout_height="2dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="75dp"
                 android:layout_marginEnd="75dp"
