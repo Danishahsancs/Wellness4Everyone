@@ -11,7 +11,7 @@
         android:id="@+id/imageLogo"
         android:layout_width="343dp"
         android:layout_height="269dp"
-        android:src="@drawable/heart2_transparent_sharpened"
+        android:src="@drawable/heartmuscle"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
