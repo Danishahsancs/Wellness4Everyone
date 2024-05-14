@@ -32,4 +32,6 @@
     <string name="m4w_header">MOVE4WELLNESS CHALLENGE</string>
     <string name="qotd_title">QUOTE OF THE DAY</string>
     <string name="forgot_password"><u>Forgot Password?</u></string>
+    <string name="nodatamsg">No data to show here. Add more activities to view!</string>
+    <string name="nodatamsg_manager">No data to show here.</string>
 </resources>

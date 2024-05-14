@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Activities List"
+            android:text="ACTIVITIES LIST"
             android:textAlignment="center"
             android:textColor="@color/Secondarycolor"
             android:textStyle="bold"
