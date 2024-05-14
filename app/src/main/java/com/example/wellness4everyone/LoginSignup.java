@@ -123,8 +123,12 @@ public class LoginSignup extends AppCompatActivity {
                         setupDatabase(email, usryear, usrname);
                         Toast.makeText(LoginSignup.this, "Account created.", Toast.LENGTH_SHORT).show();
                     } else {
-                        // If sign in fails, display a message to the user.
-                        Toast.makeText(LoginSignup.this, "Authentication failed: \n", Toast.LENGTH_SHORT).show();
+
+                        String errorMessage = "";
+                        if (task.getException() != null) {
+                            errorMessage = task.getException().getMessage();
+                        }
+                        Toast.makeText(LoginSignup.this, "Authentication failed: \n" + errorMessage, Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -159,8 +163,12 @@ public class LoginSignup extends AppCompatActivity {
                         });
 
                     } else {
-                        // If sign in fails, display a message to the user.
-                        Toast.makeText(LoginSignup.this, "Authentication failed: \n", Toast.LENGTH_SHORT).show();
+
+                        String errorMessage = "";
+                        if (task.getException() != null) {
+                            errorMessage = task.getException().getMessage();
+                        }
+                        Toast.makeText(LoginSignup.this, "Authentication failed: \n" + errorMessage, Toast.LENGTH_SHORT).show();
                     }
                 }
             });
