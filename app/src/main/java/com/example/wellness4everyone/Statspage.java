@@ -43,7 +43,7 @@ public class Statspage extends AppCompatActivity {
     private Switch switchWkMth, switchDurSteps;
     private LinearLayout toggleView;
     private Spinner spinnerActivity;
-    TextView textAverages;
+    TextView textAverages, noDataMsg;
     FirebaseAuth mAuth;
     FirebaseUser currentUser;
     String email;
@@ -59,6 +59,7 @@ public class Statspage extends AppCompatActivity {
         switchWkMth = findViewById(R.id.switch_wkMth);
         spinnerActivity = findViewById(R.id.spinner_viewstats);
         textAverages = findViewById(R.id.text_averages);
+        noDataMsg = findViewById(R.id.text_nodatamsg);
 
         // sets up spinner
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
@@ -165,9 +166,13 @@ public class Statspage extends AppCompatActivity {
                         if (count > 0) {
                             float average = total / count;
                             textAverages.setVisibility(View.VISIBLE);
+                            chart.setVisibility(View.VISIBLE);
+                            noDataMsg.setVisibility(View.INVISIBLE);
                             displayAverage(average, showDuration, showThirtyDays, involvesSteps);
                         } else {
                             textAverages.setVisibility(View.INVISIBLE);
+                            chart.setVisibility(View.INVISIBLE);
+                            noDataMsg.setVisibility(View.VISIBLE);
                         }
 
                         entries.addAll(createEntriesForDays(dataMap, showThirtyDays ? 30 : 7));
