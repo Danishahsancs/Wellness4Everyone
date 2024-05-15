@@ -56,11 +56,10 @@ public class AddActivityActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.addactivity_screen);
 
-
+        // initialize elements
         Intent intent = getIntent();
         activityTag = intent.getStringExtra("ACTIVITY_TAG");
         changeanimation(activityTag);
-        // sets up back button
         backButton = (ImageButton) findViewById(R.id.button_back);
         Calendar calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
@@ -71,18 +70,22 @@ public class AddActivityActivity extends Activity {
         enterMins =(EditText) findViewById(R.id.enter_mins);
         enterSteps =(EditText) findViewById(R.id.enter_steps);
         setupTextWatchers();
+
+        // show or hide the steps input based to the activity tag
         if(activityTag.equals("walking")|| activityTag.equals("running")){
            enterSteps.setVisibility(View.VISIBLE);
         }else{
             enterSteps.setVisibility(View.GONE);
         }
 
+        // initializes firebase components
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         currentUser = mAuth.getCurrentUser();
         email = currentUser.getEmail();
     }
 
+    // changes animation on the screen based on activity tag
     private void changeanimation(String activityTag) {
         LottieAnimationView lottieAnimationView = findViewById(R.id.lottieAnimationView);
 
@@ -113,10 +116,13 @@ public class AddActivityActivity extends Activity {
         }
     }
 
+    // goes back to main activities list page
     public void goback(View view){
         Intent intent = new Intent(AddActivityActivity.this, Activitieslist.class);
         startActivity(intent);
     }
+
+    // sets date of activity
     public void setdate(View view){
         DatePickerDialog datePickerDialog = new DatePickerDialog(AddActivityActivity.this,
                 new DatePickerDialog.OnDateSetListener() {
@@ -130,13 +136,13 @@ public class AddActivityActivity extends Activity {
                 }, year, month, day);
         DatePicker datePicker = datePickerDialog.getDatePicker();
 
-
+        // doesn't allow user to choose a future date
         datePicker.setMaxDate(System.currentTimeMillis());
-
 
         datePickerDialog.show();
     }
 
+    // sets up text watchers to update results when text changes
     private void setupTextWatchers() {
         TextWatcher textWatcher = new TextWatcher() {
             @Override
@@ -146,7 +152,7 @@ public class AddActivityActivity extends Activity {
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                // no need to implement this
             }
 
             @Override
@@ -161,6 +167,7 @@ public class AddActivityActivity extends Activity {
 
     }
 
+    // updates the results summary
     private void updateResults() {
         String mins = enterMins.getText().toString().trim();
         String steps = enterSteps.getText().toString().trim();
@@ -178,6 +185,7 @@ public class AddActivityActivity extends Activity {
         summary.setText(sb);
     }
 
+    // saves workout in the database
     public void saveworkout(View view){
         Map<String, Object> workout = new HashMap<>();
         String date = ((month+1) + "-" + day + "-" + year); // Use for document ID
@@ -223,6 +231,7 @@ public class AddActivityActivity extends Activity {
 
     }
 
+    // updates the total workout data
     private void updatetotal(String date, String activityTag, Map<String, Object> workout) {
 
         String formattedDate = reformatDateForComparison(date);
@@ -235,10 +244,11 @@ public class AddActivityActivity extends Activity {
                         if (task.isSuccessful()) {
                             DocumentSnapshot document = task.getResult();
                             if (document.exists()) {
+                                // if data exists for the day, add on to the existing minutes
                                 int minutes = Integer.parseInt(document.getString("Minutes"));
                                 int tempMins = minutes+ Integer.parseInt(enterMins.getText().toString().trim());
                                 workout.put("Minutes",String.valueOf(tempMins));
-
+                                // + add on to existing steps if activity is running or walking
                                 if(activityTag.equals("walking")|| activityTag.equals("running")){
                                     int steps = Integer.parseInt(document.getString("Steps"));
                                     int tempSteps =steps + Integer.parseInt(enterSteps.getText().toString().trim());
@@ -246,6 +256,7 @@ public class AddActivityActivity extends Activity {
                                 }
 
                             }
+                            // save updated workout data to firestore
                             workout.put("Date",formattedDate);
 
                             db.collection(activityTag)
@@ -256,6 +267,7 @@ public class AddActivityActivity extends Activity {
                 });
     }
 
+    // reformats date for comparison
     private String reformatDateForComparison(String originalDate) {
         try {
             SimpleDateFormat originalFormat = new SimpleDateFormat("MM-dd-yyyy", Locale.getDefault());

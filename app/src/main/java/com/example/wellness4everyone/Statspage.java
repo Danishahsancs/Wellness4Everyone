@@ -125,12 +125,14 @@ public class Statspage extends AppCompatActivity {
                 updateChartData(switchDurSteps.isChecked(), isChecked, finalActivity, involvesSteps));
     }
 
+    // updates data entries for the chart and values for data display
     private void updateChartData(boolean showDuration, boolean showThirtyDays, String activity, boolean involvesSteps) {
         mAuth = FirebaseAuth.getInstance();
         currentUser = mAuth.getCurrentUser();
         email = currentUser.getEmail();
         String dateThreshold = getPastDate(showThirtyDays ? 30 : 7);
 
+        // firestore query to fetch activity data
         firestore.collection("users").document(email).collection(activity)
                 .whereGreaterThanOrEqualTo("Date", dateThreshold)
                 .get()
@@ -142,6 +144,7 @@ public class Statspage extends AppCompatActivity {
                         float total = 0f;
                         int count = 0;
 
+                        // iterates through each activity
                         for (QueryDocumentSnapshot document : querySnapshot) {
                             String date = document.getString("Date");
                             try {
@@ -163,6 +166,7 @@ public class Statspage extends AppCompatActivity {
                             }
                         }
 
+                        // calculates and displays averages if data is available
                         if (count > 0) {
                             float average = total / count;
                             textAverages.setVisibility(View.VISIBLE);
@@ -184,12 +188,14 @@ public class Statspage extends AppCompatActivity {
                 });
     }
 
+    // gets past date based on number of days
     private String getPastDate(int days) {
         Calendar calendar = Calendar.getInstance();
         calendar.add(Calendar.DATE, -days);
         return outputDateFormat.format(calendar.getTime());
     }
 
+    // creates chart entries based on the fetched data
     private List<BarEntry> createEntriesForDays(Map<String, Float> dataMap, int days) {
         List<BarEntry> entries = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
@@ -204,6 +210,7 @@ public class Statspage extends AppCompatActivity {
         return entries;
     }
 
+    // fills the chart with the chart entries
     private void updateChart(List<BarEntry> entries, String label) {
         BarDataSet dataSet = new BarDataSet(entries, label);
         dataSet.setColors(ContextCompat.getColor(this, R.color.Secondarycolor));
@@ -220,6 +227,7 @@ public class Statspage extends AppCompatActivity {
         chartAppearance();
     }
 
+    // sets set appearance
     private void chartAppearance() {
         chart.getXAxis().setEnabled(false);
         chart.getAxisRight().setEnabled(false);
@@ -230,6 +238,7 @@ public class Statspage extends AppCompatActivity {
         chart.getAxisLeft().setTextSize(20f);
     }
 
+    // displays average activity data
     private void displayAverage(float average, boolean showDuration, boolean showThirtyDays, boolean involvesSteps) {
         String unit = involvesSteps ? (showDuration ? "min" : "steps") : "min";
         String timeFrame = showThirtyDays ? "month" : "week";
@@ -244,26 +253,6 @@ public class Statspage extends AppCompatActivity {
     }
 
     public void changescreen(View view){
-        ImageButton btn = (ImageButton)  view;
-        String tag = btn.getTag().toString();
-
-        Intent intent;
-        switch (tag) {
-            case "Notificationpage":
-                intent = new Intent(Statspage.this, NotificationActivity.class);
-                break;
-            case "Statspage":
-                intent = new Intent(Statspage.this, Statspage.class);
-                break;
-            case "Activitiespage":
-                intent = new Intent(Statspage.this, Activitieslist.class);
-                break;
-            case "Homepage":
-                intent = new Intent(Statspage.this, HomeActivity.class);
-                break;
-            default:
-                throw new IllegalArgumentException("Unexpected tag: " + tag);
-        }
-        startActivity(intent);
+        ScreenNavigator.navigate(this, view);
     }
 }

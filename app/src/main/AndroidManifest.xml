@@ -35,9 +35,6 @@
             android:name=".NotifyUser"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
-            android:exported="false" />
-        <activity
             android:name=".GroupStats"
             android:exported="false" />
         <activity

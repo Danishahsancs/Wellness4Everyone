@@ -3,6 +3,7 @@ package com.example.wellness4everyone;
 import java.util.ArrayList;
 import java.util.List;
 
+// class to store quotes, quote id, and quote author
 public class Quote {
     private int id;
     private String quote;

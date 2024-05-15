@@ -47,17 +47,19 @@ public class NotificationActivity extends Activity {
         itemsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, items);
         lvItems.setAdapter(itemsAdapter);
 
+        // initializes firebase authentication and firestore instances
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
         currentUser = mAuth.getCurrentUser();
         email = currentUser.getEmail();
 
-
+        // sets up list view listener and load notifications from firebase
         setupListViewListener();
         loadItemsFromFirebase();
 
     }
 
+    // loads notifications from firebase
     private void loadItemsFromFirebase() {
         db.collection("notifications")
                 .document(email)
@@ -69,6 +71,7 @@ public class NotificationActivity extends Activity {
 
 
                         items.clear();
+                        // iterates through eahc document and adds to items list
                         for (DocumentSnapshot document : snapshots.getDocuments()) {
                             String time = document.getString("Time");
                             if (time.length() > 3) {
@@ -85,37 +88,19 @@ public class NotificationActivity extends Activity {
     }
 
 
+    // navigates to different screen
     public void changescreen(View view) {
-        ImageButton btn = (ImageButton) view;
-        String tag = btn.getTag().toString();
-
-        Intent intent;
-        switch (tag) {
-            case "Notificationpage":
-                intent = new Intent(NotificationActivity.this, NotificationActivity.class);
-                break;
-            case "Statspage":
-                intent = new Intent(NotificationActivity.this, Statspage.class);
-                break;
-            case "Activitiespage":
-                intent = new Intent(NotificationActivity.this, Activitieslist.class);
-                break;
-            case "Homepage":
-                intent = new Intent(NotificationActivity.this, HomeActivity.class);
-                break;
-            default:
-                throw new IllegalArgumentException("Unexpected tag: " + tag);
-        }
-        startActivity(intent);
+        ScreenNavigator.navigate(this, view);
     }
 
+    // sets up long click listener to delete notifications
     private void setupListViewListener() {
         lvItems.setOnItemLongClickListener((parent, view, position, id) -> {
             String itemToDelete = itemsAdapter.getItem(position); // Get the item to delete
             String[] parts = itemToDelete.split("\n\n");
             String messageToDelete = parts.length > 1 ? parts[1] : parts[0];
 
-
+            // confirmation dialog for deleting notification
             new AlertDialog.Builder(NotificationActivity.this)
                     .setTitle("Confirm Deletion")
                     .setMessage("Are you sure you want to delete this notification?")
@@ -133,6 +118,7 @@ public class NotificationActivity extends Activity {
         });
     }
 
+    // deletes notification
     private void deleteNotification(String messageToDelete) {
         db.collection("notifications")
                 .document(email)
@@ -141,6 +127,7 @@ public class NotificationActivity extends Activity {
                 .get()
                 .addOnCompleteListener(task -> {
                     if (task.isSuccessful()) {
+                        // deletes the matching notification document from firebase
                         for (DocumentSnapshot document : task.getResult()) {
                             document.getReference().delete()
                                     .addOnSuccessListener(aVoid -> Toast.makeText(NotificationActivity.this, "Notification deleted successfully", Toast.LENGTH_SHORT).show())

@@ -32,18 +32,22 @@ public class menu extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
     }
 
+    // handles logging out
     public void logout (View view){
         mAuth.getInstance().signOut();
         // After logout, redirect to Login Activity
         startActivity(new Intent(menu.this, LoginSignup.class));
         finish();  // Finish the current activity to p
     }
+
+    // navigates back to the home screen
     public void goback(View view){
         ImageButton btn = (ImageButton) view;
         Intent intent = new Intent(menu.this, HomeActivity.class);
         startActivity(intent);
     }
 
+    // sends user password reset email
     public void sendPasswordReset(View view) {
         String email = mAuth.getCurrentUser().getEmail();
             mAuth.sendPasswordResetEmail(email)
@@ -60,6 +64,7 @@ public class menu extends AppCompatActivity {
 
     }
 
+    // changes username
     public void changeName(String name){
         FirebaseFirestore db;
         db = FirebaseFirestore.getInstance();
@@ -70,6 +75,7 @@ public class menu extends AppCompatActivity {
         Toast.makeText(menu.this, "Change name to "+name, Toast.LENGTH_SHORT).show();
     }
 
+    // dialog box for changing username
     public void showChangeNameDialog(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Change Name");
@@ -78,6 +84,7 @@ public class menu extends AppCompatActivity {
         input.setHint("Enter new name");
         builder.setView(input);
 
+        // confirms name change
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -89,6 +96,8 @@ public class menu extends AppCompatActivity {
                 }
             }
         });
+
+        // cancels name change
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

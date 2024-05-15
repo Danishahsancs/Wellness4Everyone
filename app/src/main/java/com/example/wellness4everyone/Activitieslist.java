@@ -20,54 +20,20 @@ public class Activitieslist extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_activitieslist);
     }
-    public void changescreen(View view){
-        ImageButton btn = (ImageButton)  view;
-        String tag = btn.getTag().toString();
 
-        Intent intent;
-        switch (tag) {
-            case "Notificationpage":
-                intent = new Intent(Activitieslist.this,NotificationActivity.class);
-                break;
-            case "Statspage":
-                intent = new Intent(Activitieslist.this, Statspage.class);
-                break;
-            case "Activitiespage":
-                intent = new Intent(Activitieslist.this, Activitieslist.class);
-                break;
-            case "Homepage":
-                intent = new Intent(Activitieslist.this, HomeActivity.class);
-                break;
-            default:
-                throw new IllegalArgumentException("Unexpected tag: " + tag);
-        }
-        startActivity(intent);
+    // handles changing screens
+    public void changescreen(View view) {
+        ScreenNavigator.navigate(this, view);
     }
 
+    // handles choosing an activity
     public void chooseactivity(View view){
         Button btn = (Button)  view;
         String tag = btn.getTag().toString();
 
-        Intent intent;
-        switch (tag) {
-            case "walking":
-                intent = new Intent(Activitieslist.this,AddActivityActivity.class);
-                break;
-            case "running":
-                intent = new Intent(Activitieslist.this, AddActivityActivity.class);
-                break;
-            case "weightlifting":
-                intent = new Intent(Activitieslist.this, AddActivityActivity.class);
-                break;
-            case "swimming":
-                intent = new Intent(Activitieslist.this, AddActivityActivity.class);
-                break;
-            case "biking":
-                intent = new Intent(Activitieslist.this, AddActivityActivity.class);
-                break;
-            default:
-                throw new IllegalArgumentException("Unexpected tag: " + tag);
-        }
+        // creates intent to start AddActivityActivity
+        Intent intent = new Intent(Activitieslist.this, AddActivityActivity.class);
+        // passes activity tag as an extra to differentiate which activity screen to display
         intent.putExtra("ACTIVITY_TAG", tag);
         startActivity(intent);
     }
